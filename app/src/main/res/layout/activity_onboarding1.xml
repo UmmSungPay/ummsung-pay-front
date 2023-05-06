@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="176dp"
+        android:layout_height="33dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-14dp"
+        android:layout_marginTop="37dp"
+        android:fontFamily="@font/thejamsil_3_regular"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="#1F63E7"
+        android:textSize="17sp"
+        tools:text="UMMSUNG Pay" />
+    
+    <ImageView
+        android:id="@+id/mobile_pay"
+        android:layout_width="253.54dp"
+        android:layout_height="227dp"
+        android:src="@drawable/mobile_pay"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="200dp" />
+
+    <TextView
+        android:id="@+id/description_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mobile_pay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/thejamsil_5_bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:text="음성안내를 지원하지 않는 기존의 페이앱들" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description_main"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="#696969"
+        android:textSize="14sp"
+        tools:text="음성으로 카드를 편리하게 추가하고\n빠르게 결제까지 이용해보세요." />
+
+    <Button
+        android:layout_width="319dp"
+        android:layout_height="49.49dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/button_design"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        tools:text="다음으로" />
+
+</RelativeLayout>
