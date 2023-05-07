@@ -12,7 +12,7 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        /*
+
         google_login.setOnClickListener{
             val intent = Intent(this, PinSettingActivity::class.java)
             startActivity(intent)
@@ -24,7 +24,7 @@ class LoginActivity : ComponentActivity() {
             startActivity(intent)
             finish()
         }
-        */
+
     }
 
 
