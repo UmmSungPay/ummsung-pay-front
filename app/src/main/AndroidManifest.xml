@@ -13,13 +13,15 @@
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
         <activity
+            android:name=".LoginCompleteActivity"
+            android:exported="false" />
+        <activity
             android:name=".PinCheckActivity"
             android:exported="false" />
         <activity
             android:name=".PinSettingActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize" /> <!--키패드 사용을 위해 추가-->
-
+            android:windowSoftInputMode="adjustResize" /> <!-- 키패드 사용을 위해 추가 -->
         <activity
             android:name=".Onboarding2Activity"
             android:exported="true" />

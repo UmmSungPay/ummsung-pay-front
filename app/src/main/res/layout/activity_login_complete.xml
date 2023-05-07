@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Onboarding1Activity">
-
+    tools:context=".LoginCompleteActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -22,10 +20,10 @@
         android:text="UMMSUNG Pay" />
 
     <ImageView
-        android:id="@+id/onboarding1_image"
-        android:layout_width="253.54dp"
-        android:layout_height="227dp"
-        android:src="@drawable/onboarding1_image"
+        android:id="@+id/login_complete_image"
+        android:layout_width="268dp"
+        android:layout_height="198.21dp"
+        android:src="@drawable/login_complete_image"
         app:layout_constraintBottom_toTopOf="@id/description_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,13 +36,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/thejamsil_5_bold"
-        android:text="음성안내를 지원하지 않는 기존의 페이앱들"
+        android:text="로그인이 완료되었어요"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/description_detail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/onboarding1_image"
+        app:layout_constraintTop_toBottomOf="@id/login_complete_image"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
@@ -55,7 +53,7 @@
         android:layout_marginTop="25dp"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
-        android:text="음성으로 카드를 편리하게 추가하고\n빠르게 결제까지 이용해보세요."
+        android:text="음성페이를 시작합니다."
         android:textAlignment="center"
         android:textColor="#696969"
         android:textSize="14sp"
@@ -77,8 +75,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="다음으로" />
-
-
+        android:text="시작하기" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
