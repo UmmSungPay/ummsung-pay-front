@@ -1,9 +1,9 @@
 package com.project.ummsungpay
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import android.content.Intent
 import android.os.Handler
+import androidx.activity.ComponentActivity
 
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +11,7 @@ class SplashActivity : ComponentActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Onboarding1Activity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
@@ -23,4 +23,7 @@ class SplashActivity : ComponentActivity() {
         private const val DURATION : Long = 3000
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }
