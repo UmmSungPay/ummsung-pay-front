@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Onboarding1Activity">
-
+    tools:context=".Onboarding2Activity">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/thejamsil_3_regular"
@@ -23,9 +20,9 @@
 
     <ImageView
         android:id="@+id/onboarding1_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/onboarding1_image"
+        android:layout_width="268dp"
+        android:layout_height="227dp"
+        android:src="@drawable/onboarding2_image"
         app:layout_constraintBottom_toTopOf="@id/description_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,32 +35,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/thejamsil_5_bold"
-        android:text="음성안내를 지원하지 않는 기존의 페이앱들"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/description_detail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/onboarding1_image"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintBottom_toTopOf="@id/description_detail"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:text="음성으로 간편하게 페이 이용" />
 
     <TextView
         android:id="@+id/description_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
-        android:text="음성으로 카드를 편리하게 추가하고\n빠르게 결제까지 이용해보세요."
         android:textAlignment="center"
         android:textColor="#696969"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description_main"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="25dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:text="음성으로 카드를 편리하게 추가하고\n빠르게 결제까지 이용해보세요." />
 
     <Button
         android:id="@+id/button_next"
