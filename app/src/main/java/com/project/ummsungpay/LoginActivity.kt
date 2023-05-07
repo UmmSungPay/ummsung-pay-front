@@ -14,13 +14,15 @@ class LoginActivity : ComponentActivity() {
 
 
         google_login.setOnClickListener{
-            val intent = Intent(this, PinSettingActivity::class.java)
+            val intent = Intent(this, LoginCompleteActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
         }
 
         kakao_login.setOnClickListener{
-            val intent = Intent(this, PinSettingActivity::class.java)
+            val intent = Intent(this, LoginCompleteActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
         }
