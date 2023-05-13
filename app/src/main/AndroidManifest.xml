@@ -13,11 +13,32 @@
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
         <activity
-            android:name=".LoginCompleteActivity"
+            android:name=".PinReregistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".PinCheckActivity"
+            android:name=".FingerprintReregistrationActivity"
             android:exported="false" />
+        <activity
+            android:name=".PayCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardAddCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PinCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FingerprintCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginCompleteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PinCheckActivity"
+            android:exported="true" />
         <activity
             android:name=".PinSettingActivity"
             android:exported="true"

@@ -7,7 +7,6 @@
     tools:context=".PinSettingActivity">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/thejamsil_3_regular"
@@ -33,7 +32,7 @@
         android:id="@+id/input_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:inputType="numberPassword"
         android:ems="8"
         android:maxLength="8"
         android:hint="PIN"
@@ -43,16 +42,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-    <Button
-        android:id="@+id/button_popup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="@id/input_box"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="비밀번호 띄우기"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

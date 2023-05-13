@@ -1,33 +1,37 @@
 package com.project.ummsungpay
 
+import android.content.Intent
 import android.os.Bundle
-import android.text.InputFilter
-import android.view.inputmethod.InputMethodManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import kotlinx.android.synthetic.main.activity_pin_setting.button_popup
+import kotlinx.android.synthetic.main.activity_pin_complete.pin_complete_image
 import kotlinx.android.synthetic.main.activity_pin_setting.input_box
 
 class PinSettingActivity : ComponentActivity() {
-
-    //var imm : InputMethodManager? = null //키보드 InputMethodManager 변수 선언
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin_setting)
 
-        //키보드 InputMethodManager 세팅
-        //imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        val toNextIntent = Intent(this, PinCheckActivity::class.java) //다음 페이지로 이동하는 intent
+        var pwLength: Int = 0
 
-
-
-        var message: String = "" //팝업 메시지를 담을 변수
-
-        button_popup.setOnClickListener{
-            message = input_box.text.toString()
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        }
+        input_box.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+                pwLength = s.toString().length
+                if (pwLength == 8) {
+                    val pinNumber = s.toString()
+                    toNextIntent.putExtra("data_pin", pinNumber)
+                    startActivity(toNextIntent)
+                }
+            }
+        })
     }
-
 
 }
