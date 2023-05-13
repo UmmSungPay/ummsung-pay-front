@@ -10,7 +10,6 @@
 
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/thejamsil_3_regular"
@@ -60,6 +59,7 @@
         android:textAlignment="center"
         android:textColor="#696969"
         android:textSize="14sp"
+        android:lineSpacingExtra="7sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

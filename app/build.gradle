@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android' //액티비티에서 레이아웃의 아이디를 참조하기 위해 추가
     id 'kotlin-android-extensions' //액티비티에서 레이아웃의 아이디를 참조하기 위해 추가
+    id 'com.google.gms.google-services' //구글 로그인 구현 위해 추가
 }
 
 android {
@@ -49,7 +50,11 @@ android {
 }
 
 dependencies {
-
+    implementation platform('com.google.firebase:firebase-bom:32.0.0') //구글 로그인 구현 위해 추가
+    implementation 'com.google.firebase:firebase-analytics-ktx' //구글 로그인 구현 위해 추가
+    implementation 'com.google.firebase:firebase-auth-ktx' //구글 로그인 구현 위해 추가2
+    implementation 'com.google.android.gms:play-services-auth:20.5.0' //구글 로그인 위해 추가2
+    implementation 'com.google.android.material:material:1.9.0' //하단 네비게이션 바 사용 위해 추가
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
     implementation 'androidx.activity:activity-compose:1.5.1'
