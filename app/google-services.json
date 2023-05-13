@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "544204281264",
+    "project_id": "ummsungpay-44202",
+    "storage_bucket": "ummsungpay-44202.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544204281264:android:771c394b5277a948903275",
+        "android_client_info": {
+          "package_name": "com.project.ummsungpay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544204281264-67qicaucdsmr4p2c5ompfb2rp5421bul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApO_SDhb0wRl0KhzGYyVnfG1CoLba6vGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544204281264-67qicaucdsmr4p2c5ompfb2rp5421bul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
