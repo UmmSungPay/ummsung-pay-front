@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.content.Intent
 import android.os.Handler
 import androidx.activity.ComponentActivity
+import com.google.firebase.auth.FirebaseAuth
+import java.util.Timer
+import java.util.TimerTask
+import kotlin.concurrent.schedule
 
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +20,6 @@ class SplashActivity : ComponentActivity() {
             startActivity(intent)
             finish()
         }, DURATION)
-
     }
 
     companion object {
