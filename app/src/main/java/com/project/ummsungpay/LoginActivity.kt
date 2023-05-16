@@ -153,5 +153,4 @@ class LoginActivity : ComponentActivity() {
         private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
     }
-
 }

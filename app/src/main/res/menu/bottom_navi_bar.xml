@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navi_cardlist"
+        android:title="카드 목록"
+        android:icon="@drawable/icon_cardlist" />
+    <item
+        android:id="@+id/navi_cardadd"
+        android:title="카드 추가"
+        android:icon="@drawable/icon_cardadd" />
+
+    <item
+        android:id="@+id/navi_cardpay"
+        android:title="카드 결제"
+        android:icon="@drawable/icon_cardpay" />
+
+    <item
+        android:id="@+id/navi_mypage"
+        android:title="마이페이지"
+        android:icon="@drawable/icon_mypage" />
+
+
+</menu>
