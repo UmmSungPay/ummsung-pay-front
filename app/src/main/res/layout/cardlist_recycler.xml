@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="215dp"
+    android:layout_height="126dp"
+    android:background="@drawable/card_shape"
+    android:paddingVertical="24dp"
+    android:paddingHorizontal="12dp">
+
+    <TextView
+        android:id="@+id/data_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:text="카드 이름"/>
+
+    <TextView
+        android:id="@+id/data_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/data_validity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/nanum_square_b"
+        android:textSize="15sp"
+        android:textColor="#FFFFFF"
+        android:text="카드 번호"/>
+
+    <TextView
+        android:id="@+id/data_validity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:fontFamily="@font/nanum_square_b"
+        android:textSize="10sp"
+        android:textColor="#FFFFFF"
+        android:text="유효기간"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
