@@ -19,7 +19,7 @@ class CardaddFragment : Fragment() {
 
         button_add.setOnClickListener(object :View.OnClickListener {
             override fun onClick(v: View?) {
-                val intent = Intent(context, CardInfoActivity::class.java)
+                val intent = Intent(context, CardScanActivity::class.java)
                 startActivity(intent)
             }
         })
