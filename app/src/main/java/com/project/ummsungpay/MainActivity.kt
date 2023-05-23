@@ -1,8 +1,10 @@
 package com.project.ummsungpay
 
+import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -91,6 +93,5 @@ class MainActivity : AppCompatActivity() {
             }
             selectedItemId = R.id.navi_cardlist
         }
-
     }
 }
