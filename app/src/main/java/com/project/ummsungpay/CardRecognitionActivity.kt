@@ -1,5 +1,6 @@
 package com.project.ummsungpay
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import kotlinx.android.synthetic.main.activity_card_recognition.buttonText
 
 class CardRecognitionActivity : AppCompatActivity() {
 
@@ -47,12 +49,19 @@ class CardRecognitionActivity : AppCompatActivity() {
         textView = findViewById(R.id.textView)
         previewView = findViewById(R.id.preview)
 
+        val intent = Intent(this, CardInfoActivity::class.java)
+
         cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture?.addListener({
             cameraProvider = cameraProviderFuture!!.get()
             bindPreviewCase()
             bindAnalyzeUserCase()
         }, ContextCompat.getMainExecutor(this))
+
+        buttonText.setOnClickListener{
+            intent.putExtra("recognized text", textView?.text)
+            startActivity(intent)
+        }
     }
 
     private fun bindPreviewCase() {
@@ -101,10 +110,12 @@ class CardRecognitionActivity : AppCompatActivity() {
         return setUpListener(textRecognizer!!.process(image))
     }
 
+
     private fun setUpListener(task: Task<Text>, ): Task<Text> {
         return task.addOnSuccessListener(executor) { results: Text ->
             val textResult: Text = results
             textView?.text = textResult.text
         }
     }
+
 }

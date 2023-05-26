@@ -10,9 +10,10 @@
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/textView"
+        app:layout_constraintBottom_toTopOf="@id/buttonText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="0.6" />
+        app:layout_constraintVertical_weight="0.9" />
+
 
     <TextView
         android:id="@+id/textView"
@@ -22,8 +23,19 @@
         android:text="여기에 텍스트 인식 결과가 표시됩니다."
         android:textSize="14dp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonText"
         app:layout_constraintTop_toBottomOf="@id/preview"
-        app:layout_constraintVertical_weight="0.4" />
+        app:layout_constraintVertical_weight="0.3"
+        android:visibility="invisible"/>
+
+
+    <Button
+        android:id="@+id/buttonText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="확인"
+        app:layout_constraintTop_toBottomOf="@id/preview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="0.1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

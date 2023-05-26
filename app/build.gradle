@@ -52,6 +52,9 @@ android {
 
 dependencies {
 
+    //객체 감지
+    implementation 'com.google.mlkit:object-detection-custom:17.0.0'
+
     //카메라
     implementation "androidx.camera:camera-core:1.2.2"
     implementation "androidx.camera:camera-camera2:1.2.2"
