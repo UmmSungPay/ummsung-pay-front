@@ -30,11 +30,11 @@
         android:background="#F5F5F5" />
 
     <TextView
-        android:id="@+id/card_name"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/line"
-        app:layout_constraintBottom_toTopOf="@id/card_number"
+        app:layout_constraintBottom_toTopOf="@id/num"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="18dp"
         app:layout_constraintVertical_chainStyle="packed"
@@ -44,10 +44,10 @@
         android:text="카드이름"/>
 
     <TextView
-        android:id="@+id/card_number"
+        android:id="@+id/num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/card_name"
+        app:layout_constraintTop_toBottomOf="@id/name"
         app:layout_constraintBottom_toTopOf="@id/validity"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="21dp"
@@ -62,8 +62,8 @@
         android:id="@+id/validity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/card_number"
-        app:layout_constraintBottom_toTopOf="@id/cvc_number"
+        app:layout_constraintTop_toBottomOf="@id/num"
+        app:layout_constraintBottom_toTopOf="@id/button_confirm"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="21dp"
         android:layout_marginStart="18dp"
@@ -73,8 +73,9 @@
         android:textColor="#4F4F4F"
         android:text="유효기간" />
 
+    <!--
     <TextView
-        android:id="@+id/cvc_number"
+        android:id="@+id/cvc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/validity"
@@ -87,6 +88,65 @@
         android:textSize="16sp"
         android:textColor="#4F4F4F"
         android:text="CVC번호" />
+    -->
+
+    <TextView
+        android:id="@+id/nameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toTopOf="@id/numValue"
+        app:layout_constraintLeft_toRightOf="@id/name"
+        android:layout_marginStart="18dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="16sp"
+        android:textColor="#4F4F4F"/>
+
+    <TextView
+        android:id="@+id/numValue"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/nameValue"
+        app:layout_constraintBottom_toTopOf="@id/validityValue"
+        app:layout_constraintLeft_toRightOf="@id/num"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="18dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="16sp"
+        android:textColor="#4F4F4F" />
+
+    <TextView
+        android:id="@+id/validityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/numValue"
+        app:layout_constraintBottom_toTopOf="@id/button_confirm"
+        app:layout_constraintLeft_toRightOf="@id/validity"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="18dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="16sp"
+        android:textColor="#4F4F4F" />
+
+    <!--
+    <TextView
+        android:id="@+id/cvcValue"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        app:layout_constraintTop_toBottomOf="@id/validityValue"
+        app:layout_constraintBottom_toTopOf="@id/button_confirm"
+        app:layout_constraintLeft_toRightOf="@id/cvc"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="18dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="16sp"
+        android:textColor="#4F4F4F" />
+    -->
+
 
     <Button
         android:id="@+id/button_confirm"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- 카메라 -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,15 +13,16 @@
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
         <activity
-            android:name=".CardRecognitionActivity"
+            android:name=".CardEdgeActivity"
             android:exported="false" />
-        <!-- 텍스트 인식 -->
+        <activity
+            android:name=".CardRecognitionActivity"
+            android:exported="false" /> <!-- 텍스트 인식 -->
         <activity
             android:name=".CameraActivity"
             android:exported="true"
             android:label="@string/title_activity_camera"
             android:theme="@style/Theme.Ummsungpay" />
-
         <activity
             android:name=".CardScanActivity"
             android:exported="true" />
@@ -98,16 +99,17 @@
             </intent-filter>
             -->
         </activity>
+
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="ocr, ocr_korean" />
     </application>
 
     <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-
-    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>
