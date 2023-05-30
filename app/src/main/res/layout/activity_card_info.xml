@@ -147,7 +147,6 @@
         android:textColor="#4F4F4F" />
     -->
 
-
     <Button
         android:id="@+id/button_confirm"
         android:layout_width="319dp"
