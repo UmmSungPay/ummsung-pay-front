@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_cardlist.card_view
+import java.io.Serializable
 
-class CardData(
+class CardData (
     private var card_name: String? = null,
     private var card_number: String? = null,
     private var card_validity: String? = null
@@ -38,13 +39,13 @@ class CardData(
     }
 }
 
-class MainActivity : AppCompatActivity() {
+var cardList: ArrayList<CardData> = arrayListOf(
+    CardData("신한S20", "1234 5678 1234 5678", "05/28"),
+    CardData("카카오", "0000 0000 0000 0000", "12/23"),
+    CardData("KB국민", "9999 9999 9999 9999", "09/25")
+)
 
-    var cardList: ArrayList<CardData> = arrayListOf(
-        CardData("신한S20", "1234-5678-1234-5678", "05/28"),
-        CardData("카카오", "0000-0000-0000-0000", "12/23"),
-        CardData("KB국민", "9999-9999-9999-9999", "09/25")
-    )
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

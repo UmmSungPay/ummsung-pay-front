@@ -24,6 +24,7 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.android.synthetic.main.activity_card_recognition.buttonText
+import kotlinx.android.synthetic.main.activity_card_recognition.textView
 
 class CardRecognitionActivity : AppCompatActivity() {
 
@@ -61,6 +62,7 @@ class CardRecognitionActivity : AppCompatActivity() {
         buttonText.setOnClickListener{
             intent.putExtra("recognized text", textView?.text)
             startActivity(intent)
+            finish()
         }
     }
 
