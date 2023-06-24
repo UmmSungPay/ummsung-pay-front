@@ -9,4 +9,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_mypage">MypageActivity</string>
+    <string name="title_activity_card_add">CardAddActivity</string>
+    <string name="title_activity_card_pay">CardPayActivity</string>
 </resources>

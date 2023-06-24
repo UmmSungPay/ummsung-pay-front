@@ -3,41 +3,65 @@ package com.project.ummsungpay
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.speech.tts.TextToSpeech
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.text.TextRecognition
-import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
-import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import androidx.core.os.postDelayed
+import kotlinx.android.synthetic.main.activity_cardscan.buttonNext
+import java.util.Locale
 
 class CardScanActivity : AppCompatActivity() {
 
+    private var tts: TextToSpeech? = null
+    private val REQUEST_CODE = 1
+
+    /*
     companion object {
         private const val PERMISSIONS_REQUEST_CAMERA = 101
     }
+    */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cardscan)
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), PERMISSIONS_REQUEST_CAMERA)
-        } else {
-            initUI()
+        if (Build.VERSION.SDK_INT >= 23) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
         }
-    }
 
-    private fun initUI() {
-        val mlkitButton = findViewById<AppCompatButton>(R.id.mlkit)
+        tts = TextToSpeech(this) {
+            if (it == TextToSpeech.SUCCESS) {
+                val result = tts?.setLanguage(Locale.KOREAN)
+                if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
 
-        mlkitButton.setOnClickListener{
-            startActivity(Intent(this@CardScanActivity, CardRecognitionActivity::class.java))
+                }
+                else {
+
+                }
+            } else {
+
+            }
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            startTTS("화면을 터치하시면 카드 추가를 위한 카메라가 실행됩니다.")
+        }, 1000)
+
+        buttonNext.setOnClickListener{
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 1000)
+            } else {
+                startActivity(Intent(this, CardRecognitionActivity::class.java))
+                finish()
+            }
         }
     }
 
@@ -47,15 +71,19 @@ class CardScanActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            PERMISSIONS_REQUEST_CAMERA -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    initUI()
-                } else {
-                    Toast.makeText(this, "카메라 권한 없음", Toast.LENGTH_SHORT).show()
-                }
-                return
+        if (requestCode == 1000) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    startTTS("카메라 사용 권한 요구를 거절하셨습니다.")
+                }, 1000)
+            } else {
+                startActivity(Intent(this, CardRecognitionActivity::class.java))
+                finish()
             }
         }
+    }
+
+    private fun startTTS(txt: String) {
+        tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 }

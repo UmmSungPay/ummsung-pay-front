@@ -18,15 +18,9 @@
         android:visibility="invisible"/>
 
     <Button
-        android:id="@+id/buttonText"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:background="@drawable/button_next"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android:fontFamily="@font/nanum_square_b"
-        android:text="확인"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp" />
+        android:id="@+id/buttonNext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
 
 </FrameLayout>

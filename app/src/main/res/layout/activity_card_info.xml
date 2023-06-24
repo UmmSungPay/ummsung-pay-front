@@ -36,10 +36,10 @@
         app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintBottom_toTopOf="@id/num"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="30dp"
         app:layout_constraintVertical_chainStyle="packed"
         android:fontFamily="@font/nanum_square"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="#4F4F4F"
         android:text="카드이름"/>
 
@@ -51,10 +51,10 @@
         app:layout_constraintBottom_toTopOf="@id/validity"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="21dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="30dp"
         app:layout_constraintVertical_chainStyle="packed"
         android:fontFamily="@font/nanum_square"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="#4F4F4F"
         android:text="카드번호" />
 
@@ -63,13 +63,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/num"
-        app:layout_constraintBottom_toTopOf="@id/button_confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="21dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="30dp"
         app:layout_constraintVertical_chainStyle="packed"
         android:fontFamily="@font/nanum_square"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="#4F4F4F"
         android:text="유효기간" />
 
@@ -97,10 +97,10 @@
         app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintBottom_toTopOf="@id/numValue"
         app:layout_constraintLeft_toRightOf="@id/name"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="25dp"
         app:layout_constraintVertical_chainStyle="packed"
         android:fontFamily="@font/nanum_square"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="#4F4F4F"/>
 
     <TextView
@@ -111,10 +111,10 @@
         app:layout_constraintBottom_toTopOf="@id/validityValue"
         app:layout_constraintLeft_toRightOf="@id/num"
         android:layout_marginTop="21dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="25dp"
         app:layout_constraintVertical_chainStyle="packed"
         android:fontFamily="@font/nanum_square"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="#4F4F4F" />
 
     <TextView
@@ -122,13 +122,13 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         app:layout_constraintTop_toBottomOf="@id/numValue"
-        app:layout_constraintBottom_toTopOf="@id/button_confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/validity"
         android:layout_marginTop="21dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="25dp"
         app:layout_constraintVertical_chainStyle="packed"
         android:fontFamily="@font/nanum_square"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="#4F4F4F" />
 
     <!--
@@ -149,17 +149,9 @@
 
     <Button
         android:id="@+id/button_confirm"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_next"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="확인" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

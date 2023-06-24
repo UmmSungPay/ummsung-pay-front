@@ -1,11 +1,11 @@
 package com.project.ummsungpay
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 
-class ManualActivity : ComponentActivity() {
+class CardDeleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_manual)
+        setContentView(R.layout.activity_card_delete)
     }
 }

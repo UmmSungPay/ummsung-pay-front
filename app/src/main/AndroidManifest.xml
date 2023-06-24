@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <!-- tts 사용 -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,16 +13,33 @@
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
         <activity
-            android:name=".CardEdgeActivity"
+            android:name=".BookmarkActivity"
             android:exported="false" />
         <activity
-            android:name=".CardRecognitionActivity"
-            android:exported="false" /> <!-- 텍스트 인식 -->
+            android:name=".CardDeleteActivity"
+            android:exported="false" />
         <activity
-            android:name=".CameraActivity"
-            android:exported="true"
-            android:label="@string/title_activity_camera"
+            android:name=".CardListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardManageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardPayActivity"
+            android:exported="false"
+            android:label="@string/title_activity_card_pay"
             android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".MypageActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mypage"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CardRecognitionActivity"
+            android:exported="false" />
         <activity
             android:name=".CardScanActivity"
             android:exported="true" />
@@ -62,7 +79,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Onboarding2Activity"
-            android:exported="true" /> <!-- 키패드 사용을 위해 추가 -->
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
@@ -85,31 +102,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Ummsungpay">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="ocr, ocr_korean" />
     </application>
 
-    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

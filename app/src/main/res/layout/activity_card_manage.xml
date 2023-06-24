@@ -4,72 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".CardManageActivity">
 
     <TextView
-        android:id="@+id/home_pay"
+        android:id="@+id/manage_check"
         android:layout_width="319dp"
         android:layout_height="49.49dp"
         android:background="@drawable/button_next"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/home_cardlist"
+        app:layout_constraintBottom_toTopOf="@id/manage_bookmark"
         android:fontFamily="@font/nanum_square_b"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        android:text="결제"
+        android:text="카드목록 확인"
         android:textAlignment="center"
         android:gravity="center"
         />
 
     <TextView
-        android:id="@+id/home_cardlist"
+        android:id="@+id/manage_bookmark"
         android:layout_width="319dp"
         android:layout_height="49.49dp"
         android:background="@drawable/button_next"
-        app:layout_constraintTop_toBottomOf="@id/home_pay"
+        app:layout_constraintTop_toBottomOf="@id/manage_check"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/home_cardadd"
+        app:layout_constraintBottom_toTopOf="@id/manage_delete"
         android:fontFamily="@font/nanum_square_b"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        android:text="카드관리"
+        android:text="즐겨찾기 카드"
         android:textAlignment="center"
         android:gravity="center"
         />
 
     <TextView
-        android:id="@+id/home_cardadd"
+        android:id="@+id/manage_delete"
         android:layout_width="319dp"
         android:layout_height="49.49dp"
         android:background="@drawable/button_next"
-        app:layout_constraintTop_toBottomOf="@id/home_cardlist"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/home_mypage"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:text="카드추가"
-        android:textAlignment="center"
-        android:gravity="center"
-        />
-
-    <TextView
-        android:id="@+id/home_mypage"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:background="@drawable/button_next"
-        app:layout_constraintTop_toBottomOf="@id/home_cardadd"
+        app:layout_constraintTop_toBottomOf="@id/manage_bookmark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:fontFamily="@font/nanum_square_b"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        android:text="마이페이지"
+        android:text="카드 삭제"
         android:textAlignment="center"
         android:gravity="center"
         />
@@ -80,25 +63,23 @@
         android:layout_weight="2"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_left"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            />
+    <Button
+        android:id="@+id/button_left"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
 
-        <Button
-            android:id="@+id/button_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
+    <Button
+        android:id="@+id/button_right"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
