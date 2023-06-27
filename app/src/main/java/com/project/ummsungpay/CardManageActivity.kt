@@ -6,28 +6,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import androidx.core.app.ActivityCompat
-import kotlinx.android.synthetic.main.activity_main.button_left
-import kotlinx.android.synthetic.main.activity_main.button_right
+import kotlinx.android.synthetic.main.activity_card_manage.button_left
+import kotlinx.android.synthetic.main.activity_card_manage.button_right
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+class CardManageActivity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
     private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_card_manage)
 
         var index: Int = 0
-        var arrayOfText = arrayOf("결제", "카드관리", "카드추가", "마이페이지")
+        var arrayOfText = arrayOf("카드목록 확인", "즐겨찾기 카드", "카드 삭제")
 
-        val intent1 = Intent(this, CardPayActivity::class.java)
-        val intent2 = Intent(this, CardManageActivity::class.java)
-        val intent3 = Intent(this, CardScanActivity::class.java)
-        val intent4 = Intent(this, MypageActivity::class.java)
+        val intent1 = Intent(this, CardListActivity::class.java)
+        val intent2 = Intent(this, BookmarkActivity::class.java)
+        val intent3 = Intent(this, CardDeleteActivity::class.java)
 
-        val arrayOfIntent = arrayOf(intent1, intent2, intent3, intent4)
+        val arrayOfIntent = arrayOf(intent1, intent2, intent3)
 
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
-                index = 4
+                index = 3
             } else {
                 index -= 1
             }
@@ -62,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
-            } else if (index == 4) {
+            } else if (index == 3) {
                 index = 1
             } else {
                 index += 1
@@ -84,5 +83,4 @@ class MainActivity : AppCompatActivity() {
     private fun startTTS(txt: String) {
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
-
 }

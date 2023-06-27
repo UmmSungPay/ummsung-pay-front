@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/thejamsil_5_bold"
-        android:text="음성안내를 지원하지 않는 기존의 페이앱들"
+        android:text="음성페이에 오신 것을 환영합니다"
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/description_detail"
@@ -55,7 +55,7 @@
         android:layout_marginTop="25dp"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
-        android:text="음성으로 카드를 편리하게 추가하고\n빠르게 결제까지 이용해보세요."
+        android:text="이용 방법을 안내해드리겠습니다.\n화면을 터치해서 다음 페이지로 이동하세요."
         android:textAlignment="center"
         android:textColor="#696969"
         android:textSize="14sp"
@@ -68,17 +68,13 @@
 
     <Button
         android:id="@+id/button_next"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_next"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="다음으로" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 
