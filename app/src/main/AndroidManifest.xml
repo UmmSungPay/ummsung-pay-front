@@ -22,6 +22,9 @@
             android:name=".CardDeleteActivity"
             android:exported="false" />
         <activity
+            android:name=".CardPayFinishActivity"
+            android:exported="false" />
+        <activity
             android:name=".CardListActivity"
             android:exported="false" />
         <activity
@@ -29,8 +32,28 @@
             android:exported="false" />
         <activity
             android:name=".CardPayActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_card_pay"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".CardPayActivity1"
+            android:exported="false"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".CardPayActivity2"
+            android:exported="false"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".CardPayListActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".CardPayFavoriteActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".CardPayRecentActivity"
+            android:exported="false"
             android:theme="@style/Theme.Ummsungpay" />
         <activity
             android:name=".MypageActivity"
@@ -91,9 +114,7 @@
             android:exported="true"
             android:label="@string/title_activity_onboarding1"
             android:theme="@style/Theme.Ummsungpay" />
-        <activity
-            android:name=".ManualActivity"
-            android:exported="true" />
+
         <activity
             android:name=".SplashActivity"
             android:exported="true"

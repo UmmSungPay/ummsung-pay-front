@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_onboarding1.button_next
 import java.util.Locale
 
+
 class Onboarding1Activity : ComponentActivity() {
 
     private var tts: TextToSpeech? = null
