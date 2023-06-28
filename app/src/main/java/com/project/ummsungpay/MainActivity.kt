@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         var index: Int = 0
         var arrayOfText = arrayOf("결제", "카드관리", "카드추가", "마이페이지")
 
-        val intent1 = Intent(this, CardPayActivity::class.java)
+        val intent1 = Intent(this, CardChooseActivity::class.java)
         val intent2 = Intent(this, CardManageActivity::class.java)
         val intent3 = Intent(this, CamPermissionActivity::class.java)
         val intent4 = Intent(this, MypageActivity::class.java)

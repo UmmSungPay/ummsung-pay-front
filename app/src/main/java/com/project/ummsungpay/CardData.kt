@@ -18,6 +18,8 @@ data class CardData (
 
 var bookmark: Int = -1
 
+var recent: Int = -1
+
 var cardList: ArrayList<CardData> = arrayListOf(
     CardData("신한S20", "1234 5678 1234 5678", "05/28"),
     CardData("카카오카드", "0000 0000 0000 0000", "12/23"),
