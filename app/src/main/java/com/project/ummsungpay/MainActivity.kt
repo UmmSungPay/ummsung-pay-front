@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val intent1 = Intent(this, CardPayActivity::class.java)
         val intent2 = Intent(this, CardManageActivity::class.java)
-        val intent3 = Intent(this, CardScanActivity::class.java)
+        val intent3 = Intent(this, CamPermissionActivity::class.java)
         val intent4 = Intent(this, MypageActivity::class.java)
 
         val arrayOfIntent = arrayOf(intent1, intent2, intent3, intent4)

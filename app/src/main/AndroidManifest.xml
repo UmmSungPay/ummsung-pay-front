@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- tts 사용 -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
+        <activity
+            android:name=".DelConfirmActivity"
+            android:exported="false" />
         <activity
             android:name=".BookmarkActivity"
             android:exported="false" />
@@ -41,7 +44,7 @@
             android:name=".CardRecognitionActivity"
             android:exported="false" />
         <activity
-            android:name=".CardScanActivity"
+            android:name=".CamPermissionActivity"
             android:exported="true" />
         <activity
             android:name=".CardInfoActivity"
@@ -111,9 +114,8 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

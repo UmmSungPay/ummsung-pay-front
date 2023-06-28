@@ -29,7 +29,7 @@ class MypageActivity : ComponentActivity() {
         setContentView(R.layout.activity_mypage)
 
         var index: Int = 0
-        var arrayOfText = arrayOf("즐겨찾기 카드 등록 및 변경", "지문 재등록", "PIN 재등록", "사용법 다시듣기")
+        var arrayOfText = arrayOf("지문 재등록", "PIN 재등록")
 
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
@@ -53,7 +53,7 @@ class MypageActivity : ComponentActivity() {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
-                index = 4
+                index = 2
             } else {
                 index -= 1
             }
@@ -64,7 +64,7 @@ class MypageActivity : ComponentActivity() {
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
-            } else if (index == 4) {
+            } else if (index == 2) {
                 index = 1
             } else {
                 index += 1

@@ -9,16 +9,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
-import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.postDelayed
 import kotlinx.android.synthetic.main.activity_cardscan.buttonNext
 import java.util.Locale
 
-class CardScanActivity : AppCompatActivity() {
+class CamPermissionActivity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
     private val REQUEST_CODE = 1
