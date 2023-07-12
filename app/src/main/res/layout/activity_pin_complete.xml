@@ -65,16 +65,12 @@
 
     <Button
         android:id="@+id/button_next"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_next"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="다음으로" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

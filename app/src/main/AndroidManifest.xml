@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -23,16 +24,10 @@
             android:name=".PayActivity"
             android:exported="false" />
         <activity
-            android:name=".DelConfirmActivity"
-            android:exported="false" />
-        <activity
             android:name=".BookmarkActivity"
             android:exported="false" />
         <activity
             android:name=".CardDeleteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CardPayFinishActivity"
             android:exported="false" />
         <activity
             android:name=".CardListActivity"
@@ -44,26 +39,6 @@
             android:name=".CardChooseActivity"
             android:exported="true"
             android:label="@string/title_activity_card_pay"
-            android:theme="@style/Theme.Ummsungpay" />
-        <activity
-            android:name=".CardPayActivity1"
-            android:exported="false"
-            android:theme="@style/Theme.Ummsungpay" />
-        <activity
-            android:name=".CardPayActivity2"
-            android:exported="false"
-            android:theme="@style/Theme.Ummsungpay" />
-        <activity
-            android:name=".CardPayListActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Ummsungpay" />
-        <activity
-            android:name=".CardPayFavoriteActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Ummsungpay" />
-        <activity
-            android:name=".CardPayRecentActivity"
-            android:exported="false"
             android:theme="@style/Theme.Ummsungpay" />
         <activity
             android:name=".MypageActivity"
@@ -82,9 +57,6 @@
         <activity
             android:name=".CardInfoActivity"
             android:exported="true" />
-        <activity
-            android:name=".PinReregistrationActivity"
-            android:exported="false" />
         <activity
             android:name=".FingerprintReregistrationActivity"
             android:exported="false" />
@@ -111,8 +83,7 @@
             android:exported="true" />
         <activity
             android:name=".PinSettingActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize" />
+            android:exported="true" />
         <activity
             android:name=".Onboarding2Activity"
             android:exported="true" />
@@ -127,7 +98,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:label="@string/title_activity_splash"
+            android:label="음성페이"
             android:theme="@style/Theme.Ummsungpay" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

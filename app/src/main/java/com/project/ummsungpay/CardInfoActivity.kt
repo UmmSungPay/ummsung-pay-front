@@ -49,12 +49,11 @@ class CardInfoActivity : AppCompatActivity() {
             }
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("카드정보가 인식되었습니다. 카드를 추가하시려면 화면을 터치해주세요.")
-        }, 1000)
-
         allText = intent.getStringExtra("recognized text").toString()
         if (allText != "") {
+            Handler(Looper.getMainLooper()).postDelayed({
+                startTTS("카드정보가 인식되었습니다. 카드를 추가하시려면 화면을 터치해주세요.")
+            }, 1000)
             textExtraction(allText)
         }
         else {
