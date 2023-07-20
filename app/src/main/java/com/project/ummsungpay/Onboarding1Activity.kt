@@ -40,7 +40,7 @@ class Onboarding1Activity : ComponentActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("음성페이에 오신 것을 환영합니다. 다음으로 이동하기 위해 화면을 터치해 주세요.")
+            startTTS("음성페이에 오신 것을 환영합니다. 화면을 터치해 주세요.")
         }, 1000)
 
         button_next.setOnClickListener{

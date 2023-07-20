@@ -56,10 +56,8 @@
             android:exported="true" />
         <activity
             android:name=".CardInfoActivity"
+            android:launchMode="singleTask"
             android:exported="true" />
-        <activity
-            android:name=".FingerprintReregistrationActivity"
-            android:exported="false" />
         <activity
             android:name=".PayCompleteActivity"
             android:exported="false" />
@@ -72,9 +70,6 @@
         <activity
             android:name=".PinCompleteActivity"
             android:exported="true" />
-        <activity
-            android:name=".FingerprintCompleteActivity"
-            android:exported="false" />
         <activity
             android:name=".LoginCompleteActivity"
             android:exported="true" />

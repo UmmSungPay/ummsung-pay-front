@@ -106,7 +106,7 @@
     <TextView
         android:id="@+id/numValue"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/nameValue"
         app:layout_constraintBottom_toTopOf="@id/validityValue"
         app:layout_constraintLeft_toRightOf="@id/num"
@@ -120,7 +120,7 @@
     <TextView
         android:id="@+id/validityValue"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/numValue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/validity"

@@ -53,7 +53,7 @@ class SplashActivity : ComponentActivity() {
                 pref.edit().putString("token", "true").apply()
                 finish()
             } else {
-                val intentNotFirst = Intent(this, MainActivity::class.java)
+                val intentNotFirst = Intent(this, Onboarding1Activity::class.java) //MainActivity
                 intentNotFirst.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 startActivity(intentNotFirst)
                 finish()

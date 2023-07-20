@@ -41,11 +41,11 @@ class Onboarding2Activity : ComponentActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("""화면의 왼쪽과 오른쪽을 터치하여 메뉴를 변경 할 수 있습니다.
                 |화면을 길게 터치하면 선택한 메뉴로 이동합니다.
-                |메인 화면으로 이동하기 위해 화면을 터치해 주세요.""".trimMargin())
+                |화면을 터치하면 메인화면으로 이동합니다.""".trimMargin())
         }, 1000)
 
         button_next.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()

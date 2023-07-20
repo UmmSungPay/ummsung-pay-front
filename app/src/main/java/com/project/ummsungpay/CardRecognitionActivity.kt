@@ -23,21 +23,19 @@ import com.google.android.odml.image.MediaMlImageBuilder
 import com.google.android.odml.image.MlImage
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.common.MlKitException
+import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import kotlinx.android.synthetic.main.activity_card_recognition.buttonNext
+import kotlinx.android.synthetic.main.activity_card_recognition.textView
 import java.util.Locale
 
 class CardRecognitionActivity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
     private val REQUEST_CODE = 1
-
-    companion object {
-        const val TAG = "CardRecognitionActivity"
-    }
 
     private var previewView: PreviewView? = null
     private var textView: TextView? = null
@@ -48,14 +46,11 @@ class CardRecognitionActivity : AppCompatActivity() {
     private var textRecognizer: TextRecognizer? = null
     private var analysisUseCase: ImageAnalysis? = null
 
-    private val executor = ScopedExecutor(TaskExecutors.MAIN_THREAD)
+    private var executor = ScopedExecutor(TaskExecutors.MAIN_THREAD)
 
-    @ExperimentalGetImage
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_recognition)
-        textView = findViewById(R.id.textView)
-        previewView = findViewById(R.id.preview)
 
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
@@ -75,6 +70,7 @@ class CardRecognitionActivity : AppCompatActivity() {
             }
         }
 
+        //재시도 여부 확인
         val isRetry = intent.getIntExtra("isFail", 0)
 
         if (isRetry == 1) {
@@ -83,11 +79,13 @@ class CardRecognitionActivity : AppCompatActivity() {
             }, 1000)
         } else {
             Handler(Looper.getMainLooper()).postDelayed({
-                startTTS("카메라가 실행되었습니다. 화면을 터치하면 촬영됩니다.")
+                startTTS("카메라가 실행되었습니다.")
             }, 1000)
         }
 
-        val intentNext = Intent(this, CardInfoActivity::class.java)
+        textView = findViewById(R.id.textView)
+        previewView = findViewById(R.id.preview)
+
 
         cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture?.addListener({
@@ -96,11 +94,13 @@ class CardRecognitionActivity : AppCompatActivity() {
             bindAnalyzeUserCase()
         }, ContextCompat.getMainExecutor(this))
 
+        /*
         buttonNext.setOnClickListener{
             intentNext.putExtra("recognized text", textView?.text)
             startActivity(intentNext)
             finish()
         }
+        */
     }
 
     private fun bindPreviewCase() {
@@ -129,8 +129,6 @@ class CardRecognitionActivity : AppCompatActivity() {
             try {
                 processImageProxy(imageProxy)
             } catch (e: MlKitException) {
-                Log.e(TAG, "Failed to process image. Error: " + e.localizedMessage)
-                Toast.makeText(applicationContext,  e.localizedMessage, Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -142,14 +140,32 @@ class CardRecognitionActivity : AppCompatActivity() {
     fun processImageProxy(image: ImageProxy) {
         val mlImage = MediaMlImageBuilder(image.image!!).setRotation(image.imageInfo.rotationDegrees).build()
         requestDetectInImage(mlImage)
-            .addOnCompleteListener{image.close()}
+            .addOnCompleteListener{
+                image.close()
+
+                //16자리 숫자 추출
+                val regexCardnum = Regex("""\s\d{4}\s\d{4}\s\d{4}\s\d{4}""")
+                val matchCardnum: MatchResult? = regexCardnum.find(textView!!.text)
+
+                //유효기간 추출
+                val regexValidity = Regex("""\s\d{2}/\d{2}""")
+                val matchValidity: MatchResult? = regexValidity.find(textView!!.text)
+
+                //카드번호와 유효기간이 모두 추출되었다면
+                if (matchCardnum != null && matchValidity != null) {
+                    val intentNext = Intent(this, CardInfoActivity::class.java)
+                    intentNext.putExtra("recognized cardnum", matchCardnum!!.value)
+                    intentNext.putExtra("recognized validity", matchValidity!!.value)
+                    startActivity(intentNext)
+                }
+            }
     }
 
     private fun requestDetectInImage(image: MlImage): Task<Text> {
         return setUpListener(textRecognizer!!.process(image))
     }
 
-    private fun setUpListener(task: Task<Text>, ): Task<Text> {
+    private fun setUpListener(task: Task<Text>): Task<Text> {
         return task.addOnSuccessListener(executor) { results: Text ->
             val textResult: Text = results
             textView?.text = textResult.text
@@ -159,5 +175,4 @@ class CardRecognitionActivity : AppCompatActivity() {
     private fun startTTS(txt: String) {
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
-
 }

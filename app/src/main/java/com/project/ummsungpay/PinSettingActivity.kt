@@ -48,7 +48,10 @@ class PinSettingActivity : ComponentActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("6자리 PIN번호를 설정해주세요. 키패드를 누르면 숫자를 알 수 있습니다. 길게 누르면 입력됩니다.")
+            startTTS("""6자리 PIN번호를 설정해주세요.
+                |화면 하단의 키패드를 누르면 숫자를 알 수 있습니다.
+                |길게 누르면 입력됩니다.
+                |삭제 키는 키패드 우측 하단에 있습니다.""".trimMargin())
         }, 1000)
 
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator

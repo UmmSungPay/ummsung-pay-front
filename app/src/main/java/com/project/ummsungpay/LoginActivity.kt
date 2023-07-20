@@ -17,7 +17,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.google_login
-import kotlinx.android.synthetic.main.activity_login.kakao_login
 
 class LoginActivity : ComponentActivity() {
 
@@ -60,13 +59,6 @@ class LoginActivity : ComponentActivity() {
 
         google_login.setOnClickListener{
             signIn()
-        }
-
-        kakao_login.setOnClickListener{
-            val intent = Intent(this, LoginCompleteActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
-            finish()
         }
 
     }

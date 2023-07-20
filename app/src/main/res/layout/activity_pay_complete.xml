@@ -53,7 +53,7 @@
         android:layout_marginTop="25dp"
         android:fontFamily="@font/nanum_square_r"
         android:gravity="center"
-        android:text="카드 목록 화면으로 이동합니다."
+        android:text="메인화면으로 이동합니다."
         android:textAlignment="center"
         android:textColor="#696969"
         android:textSize="14sp"
@@ -65,16 +65,8 @@
 
     <Button
         android:id="@+id/button_toFirst"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_next"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="처음으로" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

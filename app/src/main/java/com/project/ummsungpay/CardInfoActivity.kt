@@ -11,17 +11,19 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.os.postDelayed
 import kotlinx.android.synthetic.main.activity_card_info.button_confirm
+import kotlinx.android.synthetic.main.activity_card_info.num
 import kotlinx.android.synthetic.main.activity_card_info.numValue
+import kotlinx.android.synthetic.main.activity_card_info.validity
 import kotlinx.android.synthetic.main.activity_card_info.validityValue
 import java.util.Locale
 
 class CardInfoActivity : AppCompatActivity() {
 
     private var resultCardnum: String = ""
-    private var resultDelete: String = ""
+    private var resultDelete1: String = ""
+    private var resultDelete2: String = ""
     private var resultReplace: String = ""
     private var resultValidity: String = ""
-    private var allText: String = ""
 
     private var tts: TextToSpeech? = null
     private val REQUEST_CODE = 1
@@ -49,12 +51,25 @@ class CardInfoActivity : AppCompatActivity() {
             }
         }
 
-        allText = intent.getStringExtra("recognized text").toString()
-        if (allText != "") {
+        resultCardnum = intent.getStringExtra("recognized cardnum").toString()
+        resultValidity = intent.getStringExtra("recognized validity").toString()
+
+        if (resultCardnum != null && resultValidity != null) {
             Handler(Looper.getMainLooper()).postDelayed({
                 startTTS("카드정보가 인식되었습니다. 카드를 추가하시려면 화면을 터치해주세요.")
             }, 1000)
-            textExtraction(allText)
+
+            //카드번호와 유효기간의 맨 처음 공백 제거
+            val regexDelete = Regex("""\s""")
+            resultDelete1 = regexDelete.replaceFirst(resultCardnum, "")
+            resultDelete2 = regexDelete.replaceFirst(resultValidity, "")
+
+            //16자리 숫자 내 줄바꿈을 공백으로 교체
+            val regexReplace = Regex("""\n""")
+            resultReplace = regexReplace.replace(resultDelete1, " ")
+
+            numValue.text = resultReplace
+            validityValue.text = resultDelete2
         }
         else {
             val intentRetry = Intent(this, CardRecognitionActivity::class.java)
@@ -73,33 +88,6 @@ class CardInfoActivity : AppCompatActivity() {
         }
 
 
-    }
-
-    private fun textExtraction(txt: String) {
-        
-        //16자리 숫자 추출
-        val regexCardnum = Regex("""\s\d{4}\s\d{4}\s\d{4}\s\d{4}""")
-        val matchCardnum: MatchResult? = regexCardnum.find(txt)
-        resultCardnum = matchCardnum!!.value
-
-        //유효기간 추출
-        val regexValidity = Regex("""\d{2}/\d{2}""")
-        val matchValidity: MatchResult? = regexValidity.find(txt)
-        resultValidity = matchValidity!!.value
-
-        //16자리 숫자의 맨 앞 공백 제거
-        val regexDelete = Regex("""\s""")
-        resultDelete = regexDelete.replaceFirst(resultCardnum, "")
-                
-        //16자리 숫자 내 줄바꿈을 공백으로 교체
-        val regexReplace = Regex("""\n""")
-        resultReplace = regexReplace.replace(resultDelete, " ")
-                
-
-        //카드번호 표시
-        numValue.text = resultReplace
-        //유효기간 표시
-        validityValue.text = resultValidity
     }
 
     private fun startTTS(txt: String) {
