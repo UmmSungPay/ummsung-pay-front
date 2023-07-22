@@ -13,8 +13,9 @@
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
         <activity
-            android:name=".FingerprintActivity"
-            android:exported="true" />
+            android:name=".CardNameActivity"
+            android:exported="true"
+            android:launchMode="singleTask" />
         <activity
             android:name=".PayActivity"
             android:exported="false" />
@@ -51,8 +52,7 @@
             android:exported="true" />
         <activity
             android:name=".CardInfoActivity"
-            android:exported="true"
-            android:launchMode="singleTask" />
+            android:exported="true" />
         <activity
             android:name=".PayCompleteActivity"
             android:exported="false" />
@@ -105,9 +105,16 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
 
 </manifest>

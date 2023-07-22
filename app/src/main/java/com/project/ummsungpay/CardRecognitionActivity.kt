@@ -91,7 +91,7 @@ class CardRecognitionActivity : AppCompatActivity() {
         cameraProviderFuture?.addListener({
             cameraProvider = cameraProviderFuture!!.get()
             bindPreviewCase()
-            bindAnalyzeUserCase()
+            bindAnalyzeUserCase() //오류 뜨지만 실행에 문제X
         }, ContextCompat.getMainExecutor(this))
 
         /*
@@ -153,10 +153,11 @@ class CardRecognitionActivity : AppCompatActivity() {
 
                 //카드번호와 유효기간이 모두 추출되었다면
                 if (matchCardnum != null && matchValidity != null) {
-                    val intentNext = Intent(this, CardInfoActivity::class.java)
+                    val intentNext = Intent(this, CardNameActivity::class.java)
                     intentNext.putExtra("recognized cardnum", matchCardnum!!.value)
                     intentNext.putExtra("recognized validity", matchValidity!!.value)
                     startActivity(intentNext)
+                    finish()
                 }
             }
     }

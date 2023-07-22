@@ -40,7 +40,7 @@ class CardAddCompleteActivity : ComponentActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("카드 추가가 완료되었습니다. 메인화면으로 돌아가기 위해 화면을 터치해 주세요.")
+            startTTS("카드 추가가 완료되었습니다. 화면을 터치하면 메인화면으로 이동합니다.")
         }, 1000)
 
         button_toFirst.setOnClickListener{

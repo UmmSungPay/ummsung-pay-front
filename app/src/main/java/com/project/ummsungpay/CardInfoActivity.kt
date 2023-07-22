@@ -6,25 +6,26 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.os.postDelayed
 import kotlinx.android.synthetic.main.activity_card_info.button_confirm
-import kotlinx.android.synthetic.main.activity_card_info.num
+import kotlinx.android.synthetic.main.activity_card_info.nameValue
 import kotlinx.android.synthetic.main.activity_card_info.numValue
-import kotlinx.android.synthetic.main.activity_card_info.validity
 import kotlinx.android.synthetic.main.activity_card_info.validityValue
 import java.util.Locale
 
 class CardInfoActivity : AppCompatActivity() {
 
+    //카드정보 추출
+    private var resultCardname: String = ""
     private var resultCardnum: String = ""
     private var resultDelete1: String = ""
     private var resultDelete2: String = ""
     private var resultReplace: String = ""
     private var resultValidity: String = ""
 
+    //tts
     private var tts: TextToSpeech? = null
     private val REQUEST_CODE = 1
 
@@ -33,6 +34,7 @@ class CardInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_info)
 
+        //tts
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
         }
@@ -41,22 +43,21 @@ class CardInfoActivity : AppCompatActivity() {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
                 if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-
                 }
                 else {
-
                 }
             } else {
-
             }
         }
-
+        
+        resultCardname = intent.getStringExtra("recognized cardname").toString()
         resultCardnum = intent.getStringExtra("recognized cardnum").toString()
         resultValidity = intent.getStringExtra("recognized validity").toString()
 
+        //카드번호, 유효기간 추출
         if (resultCardnum != null && resultValidity != null) {
             Handler(Looper.getMainLooper()).postDelayed({
-                startTTS("카드정보가 인식되었습니다. 카드를 추가하시려면 화면을 터치해주세요.")
+                startTTS("카드정보가 모두 인식되었습니다. 카드를 추가하시려면 화면을 터치해주세요.")
             }, 1000)
 
             //카드번호와 유효기간의 맨 처음 공백 제거
@@ -68,6 +69,7 @@ class CardInfoActivity : AppCompatActivity() {
             val regexReplace = Regex("""\n""")
             resultReplace = regexReplace.replace(resultDelete1, " ")
 
+            nameValue.text = resultCardname
             numValue.text = resultReplace
             validityValue.text = resultDelete2
         }
@@ -78,11 +80,10 @@ class CardInfoActivity : AppCompatActivity() {
             finish()
         }
 
-
         button_confirm.setOnClickListener{
             val intentComplete = Intent(this, CardAddCompleteActivity::class.java)
             intentComplete.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            cardList.add(CardData("", resultReplace, resultValidity)) //MainActivity의 cardList에 새 카드정보 추가(카드이름 제외)
+            cardList.add(CardData(resultCardname, resultReplace, resultValidity)) //CardData.kt에 새 카드정보 추가
             startActivity(intentComplete)
             finish()
         }
