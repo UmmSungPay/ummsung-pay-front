@@ -6,27 +6,43 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
-import androidx.activity.ComponentActivity
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_card_list.data_name
 import kotlinx.android.synthetic.main.activity_card_list.data_number
 import kotlinx.android.synthetic.main.activity_card_list.data_validity
 import kotlinx.android.synthetic.main.activity_main.button_left
 import kotlinx.android.synthetic.main.activity_main.button_right
 import java.util.Locale
+import java.util.concurrent.Executor
 
-class CardChooseActivity : ComponentActivity() {
+class CardChooseActivity : AppCompatActivity() {
 
+    //tts
     private var tts: TextToSpeech? = null
     private val REQUEST_CODE = 1
+
+    //카드 선택
     var index: Int = 0
     var tempCardList = cardList
     var tempBookmark = CardData("", "", "")
+
+    //지문인식
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: androidx.biometric.BiometricPrompt
+    private lateinit var promptInfo: androidx.biometric.BiometricPrompt.PromptInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_choose)
 
+        //결제완료 후 액티비티 이동
+        val intent = Intent(this, PayCompleteActivity::class.java)
+
+        //tts
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
         }
@@ -45,7 +61,53 @@ class CardChooseActivity : ComponentActivity() {
             }
         }
 
-        if(bookmark != -1){
+        //지문인식 사용 가능 여부 확인
+        val biometricManager = androidx.biometric.BiometricManager.from(this)
+        when (biometricManager.canAuthenticate(androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG or androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+
+            }
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
+
+            }
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+
+            }
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+
+            }
+        }
+
+        //지문인식 결과에 따른 동작 설정
+        executor = ContextCompat.getMainExecutor(this)
+        biometricPrompt = androidx.biometric.BiometricPrompt(this, executor, object: androidx.biometric.BiometricPrompt.AuthenticationCallback() {
+
+            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                super.onAuthenticationError(errorCode, errString)
+            }
+
+            override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
+                super.onAuthenticationSucceeded(result)
+                startActivity(intent)
+                finish()
+            }
+
+            override fun onAuthenticationFailed() {
+                super.onAuthenticationFailed()
+                startTTS("지문이 일치하지 않습니다. 다시 시도해주세요.")
+            }
+        })
+
+        //지문인식 창 설정
+        promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
+            .setTitle("음성페이")
+            .setSubtitle(" ")
+            .setNegativeButtonText(" ")
+            .build()
+
+
+        //카드선택
+        if (bookmark != -1){
             tempBookmark = tempCardList[bookmark]
             tempCardList.removeAt(bookmark)
             tempCardList.add(0, tempBookmark)
@@ -87,13 +149,15 @@ class CardChooseActivity : ComponentActivity() {
 
         button_left.setOnLongClickListener {
             var selectedCard: String = tempCardList[index-1].card_name
-            startTTS("$selectedCard 를 선택하셨습니다.")
+            startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
+            biometricPrompt.authenticate(promptInfo)
             return@setOnLongClickListener (true)
         }
 
         button_right.setOnLongClickListener {
             var selectedCard: String = tempCardList[index-1].card_name
-            startTTS("$selectedCard 를 선택하셨습니다.")
+            startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
+            biometricPrompt.authenticate(promptInfo)
             return@setOnLongClickListener (true)
         }
     }

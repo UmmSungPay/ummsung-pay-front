@@ -20,28 +20,11 @@
         android:text="UMMSUNG Pay" />
 
     <TextView
-        android:id="@+id/mypageFingerprint"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:background="@drawable/button_next"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/mypagePin"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:text="지문 재등록"
-        android:textAlignment="center"
-        android:gravity="center"
-        />
-
-    <TextView
         android:id="@+id/mypagePin"
         android:layout_width="319dp"
         android:layout_height="49.49dp"
         android:background="@drawable/button_next"
-        app:layout_constraintTop_toBottomOf="@id/mypageFingerprint"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

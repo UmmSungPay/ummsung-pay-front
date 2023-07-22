@@ -67,7 +67,7 @@ class PinSettingActivity : ComponentActivity() {
                 password.removeLast()
             }
             pin.text = "*".repeat(password.size)
-            vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
+            vibrator.vibrate(VibrationEffect.createOneShot(100, 30))
             return@setOnLongClickListener (true)
         }
         reOrderKeyboard(btnWidth)

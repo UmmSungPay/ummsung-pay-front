@@ -11,7 +11,7 @@ import android.os.Looper
 import android.speech.tts.TextToSpeech
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_cardscan.buttonNext
+import kotlinx.android.synthetic.main.activity_cam_permission.buttonNext
 import java.util.Locale
 
 class CamPermissionActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class CamPermissionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cardscan)
+        setContentView(R.layout.activity_cam_permission)
 
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)

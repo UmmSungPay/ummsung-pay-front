@@ -105,7 +105,7 @@ class PinCheckActivity : ComponentActivity() {
                     btn.setOnLongClickListener{
                         //숫자 버튼 눌렀을 때 동작
                         password += btnNumber
-                        vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, 30))
                         if (password.size == 6) {
                             if (password == intent.getIntegerArrayListExtra("pwFirst")) {
                                 val toNext2 = Intent(this, PinCompleteActivity::class.java)
