@@ -20,7 +20,6 @@ class CardNameActivity : AppCompatActivity() {
 
     //tts
     private var tts: TextToSpeech? = null
-    private val REQUEST_CODE = 1
 
     //stt
     private lateinit var speechRecognizer: SpeechRecognizer
@@ -39,10 +38,6 @@ class CardNameActivity : AppCompatActivity() {
         validity = intent.getStringExtra("recognized validity").toString()
 
         //tts
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
@@ -64,7 +59,7 @@ class CardNameActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("카드번호와 유효기간을 인식했습니다. 화면을 터치한 뒤 카드 이름을 말씀해주세요.")
-        }, 1000)
+        }, 500)
 
         //음성인식 시작
         button.setOnClickListener{
@@ -129,7 +124,7 @@ class CardNameActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     startTTS("인식된 카드 이름은" + cardname +
                             "입니다. 맞으시면 길게, 다시 말씀하시려면 짧게 터치하세요")
-                }, 1000)
+                }, 500)
             }
         }
 

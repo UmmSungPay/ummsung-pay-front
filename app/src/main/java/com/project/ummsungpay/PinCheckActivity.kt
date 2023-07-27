@@ -12,27 +12,23 @@ import android.speech.tts.TextToSpeech
 import android.util.DisplayMetrics
 import android.widget.Button
 import android.widget.TableRow
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_pin_setting.key_remove
 import kotlinx.android.synthetic.main.activity_pin_setting.pin
 import kotlinx.android.synthetic.main.activity_pin_setting.tableLayout
 import java.util.Locale
 
-class PinCheckActivity : ComponentActivity() {
+class PinCheckActivity : AppCompatActivity() {
 
-    private var tts: TextToSpeech? = null
-    private val REQUEST_CODE = 1
-    var password = ArrayList<Int>()
+    private var tts: TextToSpeech? = null //tts 관련 변수
+    var password = ArrayList<Int>() //PIN 저장 배열
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin_check)
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
+        //tts
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
@@ -47,24 +43,24 @@ class PinCheckActivity : ComponentActivity() {
             }
         }
 
+        //안내멘트
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("PIN번호를 한 번 더 입력해주세요.")
-        }, 1000)
+        }, 500)
 
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val btnWidth: Int = getBtnWidth()
 
-        key_remove.setOnClickListener{
+        key_remove.setOnClickListener{//'삭제' 음성안내
             startTTS("삭제")
         }
 
-        key_remove.setOnLongClickListener{
-            //삭제 버튼 눌렀을 때 동작
-            if (password.size >= 1) {
-                password.removeLast()
+        key_remove.setOnLongClickListener{//삭제 동작
+            if (password.size >= 1) { //1개 이상 입력된 상태일 때
+                password.removeLast() //마지막 숫자 삭제
             }
             pin.text = "*".repeat(password.size)
-            vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
+            vibrator.vibrate(VibrationEffect.createOneShot(100, 10)) //동작 때마다 진동
             return@setOnLongClickListener (true)
         }
         reOrderKeyboard(btnWidth)
@@ -98,27 +94,26 @@ class PinCheckActivity : ComponentActivity() {
 
                     keyNumberArr.removeIf{x -> x == keyNumberArr[randIndx]} //지정된 숫자를 배열에서 삭제
 
-                    btn.setOnClickListener{
+                    btn.setOnClickListener{//'숫자' 음성안내
                         startTTS(btnNumber.toString())
                     }
 
-                    btn.setOnLongClickListener{
-                        //숫자 버튼 눌렀을 때 동작
-                        password += btnNumber
-                        vibrator.vibrate(VibrationEffect.createOneShot(100, 30))
-                        if (password.size == 6) {
-                            if (password == intent.getIntegerArrayListExtra("pwFirst")) {
+                    btn.setOnLongClickListener{//숫자 입력
+                        password += btnNumber //배열 마지막에 숫자 추가
+                        pin.text = "*".repeat(password.size) //시각요소 수정
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, 10)) //동작 때마다 진동
+                        if (password.size == 6) { //6자리를 다 입력했을 경우
+                            if (password == intent.getIntegerArrayListExtra("pwFirst")) { //PIN 일치할 경우
                                 val toNext2 = Intent(this, PinCompleteActivity::class.java)
                                 startActivity(toNext2)
                                 finish()
                             } else {
-                                for(i in 0..password.size - 1) {
-                                    password.removeLast()
+                                for(i in 0..password.size - 1) { //PIN 불일치할 경우
+                                    password.removeLast() //입력한 숫자 모두 삭제
                                 }
                                 startTTS("PIN번호가 일치하지 않습니다. 처음부터 다시 입력해 주세요.")
                             }
                         }
-                        pin.text = "*".repeat(password.size)
                         return@setOnLongClickListener (true)
                     }
                 }
@@ -132,7 +127,7 @@ class PinCheckActivity : ComponentActivity() {
         return displaymetrics.widthPixels
     }
 
-    private fun startTTS(txt: String) {
+    private fun startTTS(txt: String) { //tts 실행 함수
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 }

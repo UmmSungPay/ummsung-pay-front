@@ -13,25 +13,22 @@ import java.util.Locale
 class CardManageActivity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
-    private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_manage)
 
-        var index: Int = 0
-        var arrayOfText = arrayOf("카드목록 확인", "즐겨찾기 카드", "카드 삭제")
+        var index: Int = 0 //카드 이동용 인덱스
+        var arrayOfText = arrayOf("카드목록 확인", "즐겨찾기 카드", "카드 삭제") //메뉴 이동용 배열
 
+        //액티비티별 intent
         val intent1 = Intent(this, CardListActivity::class.java)
         val intent2 = Intent(this, BookmarkActivity::class.java)
         val intent3 = Intent(this, CardDeleteActivity::class.java)
 
-        val arrayOfIntent = arrayOf(intent1, intent2, intent3)
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
+        val arrayOfIntent = arrayOf(intent1, intent2, intent3) //intent의 배열
+        
+        //tts
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
@@ -46,6 +43,7 @@ class CardManageActivity : AppCompatActivity() {
             }
         }
 
+        //메뉴 이동
         button_left.setOnClickListener{
             if (index == 0) {
                 index = 1
@@ -58,6 +56,7 @@ class CardManageActivity : AppCompatActivity() {
 
         }
 
+        //메뉴 이동
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
@@ -69,18 +68,20 @@ class CardManageActivity : AppCompatActivity() {
             startTTS(arrayOfText[index-1])
         }
 
+        //메뉴 선택
         button_left.setOnLongClickListener {
             startActivity(arrayOfIntent[index-1])
             return@setOnLongClickListener (true)
         }
 
+        //메뉴 선택
         button_right.setOnLongClickListener {
             startActivity(arrayOfIntent[index-1])
             return@setOnLongClickListener (true)
         }
     }
 
-    private fun startTTS(txt: String) {
+    private fun startTTS(txt: String) { //tts 실행 함수
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 }

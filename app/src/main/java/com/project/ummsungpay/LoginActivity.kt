@@ -2,147 +2,139 @@ package com.project.ummsungpay
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.ComponentActivity
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
+import android.os.Handler
+import android.os.Looper
+import android.speech.tts.TextToSpeech
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_login.google_login
+import kotlinx.android.synthetic.main.activity_login.button_left
+import java.util.Locale
 
-class LoginActivity : ComponentActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    //private lateinit var oneTapClient: SignInClient
-    //private lateinit var signInRequest: BeginSignInRequest
-    //private val REQ_ONE_TAP = 2
-    //private var showOneTabUI = true
-    private lateinit var auth: FirebaseAuth
+    //tts 관련 변수
+    private var tts: TextToSpeech? = null
+    //로그인 관련 변수
+    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private val RC_SIGN_IN = 99
+
+    public override fun onStart() { //유저가 이미 앱에 구글 로그인을 했는지 확인
+        super.onStart()
+
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        if (account != null) { //이미 로그인이 되어있을 시
+            toCompleteActivity(firebaseAuth.currentUser) //메인 액티비티로 이동
+        } else {
+            //안내 멘트
+            Handler(Looper.getMainLooper()).postDelayed({
+                startTTS("구글 로그인은 화면의 왼쪽을, 네이버 로그인은 화면의 오른쪽을 터치해주세요.")
+            }, 500)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //tts
+        tts = TextToSpeech(this) {
+            if (it == TextToSpeech.SUCCESS) {
+                val result = tts?.setLanguage(Locale.KOREAN)
+                if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                }
+                else {
+                }
+            } else {
+            }
+        }
+
+        //왼쪽 버튼 -> 구글 로그인
+        button_left.setOnClickListener {
+            signIn()
+        }
+
+        //구글 로그인 옵션 구성. requestIdToken 및 email 요청
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
-
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        /*
-        oneTapClient = Identity.getSignInClient(this)
-        signInRequest = BeginSignInRequest.builder()
-            //.setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
-            //    .setSupported(true)
-            //    .build())
-            .setGoogleIdTokenRequestOptions(
-                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                    .setSupported(true)
-                    .setServerClientId(getString(R.string.default_web_client_id))
-                    .setFilterByAuthorizedAccounts(true)
-                    .build())
-            //.setAutoSelectEnabled(true)
-            .build()
-        */
+        firebaseAuth = FirebaseAuth.getInstance() //firebase auth 객체
 
-        auth = Firebase.auth
+    }
 
-        google_login.setOnClickListener{
-            signIn()
+    fun toCompleteActivity(user: FirebaseUser?) { //LoginCompleteActivity로 이동
+        if (user != null) {
+            startActivity(Intent(this, LoginCompleteActivity::class.java))
+            finish()
         }
-
     }
 
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val toNextIntent = Intent(this, LoginCompleteActivity::class.java) //다음 페이지로 이동하는 intent
 
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                firebaseAuthWithGoogle(account.idToken!!)
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account!!)
             } catch (e: ApiException) {
-                Log.w(TAG, "Google sign in failed", e)
-            }
-            startActivity(toNextIntent) //다음 페이지로 이동
-        }
-        /*
-        when(requestCode) {
-            REQ_ONE_TAP -> {
-                try {
-                    val credential = oneTapClient.getSignInCredentialFromIntent(data)
-                    val idToken = credential.googleIdToken
-                    when {
-                        idToken != null -> {
-                            val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-                            auth.signInWithCredential(firebaseCredential)
-                                .addOnCompleteListener(this) { task ->
-                                    if (task.isSuccessful) {
-                                        Log.d(TAG, "signInWithCredential:success")
-                                        val user = auth.currentUser
-                                        updateUI(user)
-                                    } else {
-                                        Log.w(TAG, "signInWithCredential:failure", task.exception)
-                                        updateUI(null)
-                                    }
-                                }
-                        }
-                        else -> {
-                            Log.d(TAG, "No ID token!")
-                        }
-                    }
-                } catch (e: ApiException) {
-
-                }
+                startTTS("로그인에 실패했습니다.")
             }
         }
-        */
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        //Toast.makeText(this, acct.id!!, Toast.LENGTH_SHORT).show()
+
+        //Google SignInAccount 객체에서 ID 토큰을 가져와 Firebase Auth로 교환하고 Firebase에 인증
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    updateUI(user)
+                    startTTS("로그인 되었습니다.")
+                    toCompleteActivity(firebaseAuth?.currentUser)
                 } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    updateUI(null)
+                    startTTS("로그인에 실패했습니다.")
                 }
             }
     }
 
-    private fun signIn() {
+    private fun signIn() { //로그인
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun updateUI(user: FirebaseUser?) {
 
+    fun signOut() { //로그아웃
+        firebaseAuth.signOut() //firebase sign out
+        googleSignInClient.signOut() //google sign out
+            .addOnCompleteListener(this) {
+                //google sign out 이후 동작
+            }
     }
 
-    companion object {
-        private const val TAG = "GoogleActivity"
-        private const val RC_SIGN_IN = 9001
+
+    private fun revokeAccess() { //회원 탈퇴
+        firebaseAuth.signOut() //firebase sign out
+        googleSignInClient.revokeAccess()
+            .addOnCompleteListener(this) {
+                //회원 탈퇴 후 동작
+            }
+    }
+
+    private fun startTTS(txt: String) { //tts 실행 함수
+        tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 }

@@ -3,7 +3,6 @@ package com.project.ummsungpay
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -16,45 +15,34 @@ import java.util.Locale
 
 class CamPermissionActivity : AppCompatActivity() {
 
-    private var tts: TextToSpeech? = null
-    private val REQUEST_CODE = 1
-
-    /*
-    companion object {
-        private const val PERMISSIONS_REQUEST_CAMERA = 101
-    }
-    */
+    private var tts: TextToSpeech? = null //tts 관련 변수
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cam_permission)
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
+        //tts
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
                 if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-
                 }
                 else {
-
                 }
             } else {
-
             }
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("화면을 터치하시면 카드 추가를 위한 카메라가 실행됩니다.")
+            startTTS("화면을 터치하면 카메라가 실행됩니다.")
         }, 1000)
 
         buttonNext.setOnClickListener{
+            //카메라 권한 없을 시
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                //권한 요청
                 ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 1000)
-            } else {
+            } else { //카메라 실행
                 startActivity(Intent(this, CardRecognitionActivity::class.java))
                 finish()
             }
@@ -71,7 +59,7 @@ class CamPermissionActivity : AppCompatActivity() {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 Handler(Looper.getMainLooper()).postDelayed({
                     startTTS("카메라 사용 권한 요구를 거절하셨습니다.")
-                }, 1000)
+                }, 500)
             } else {
                 startActivity(Intent(this, CardRecognitionActivity::class.java))
                 finish()

@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "544204281264-67qicaucdsmr4p2c5ompfb2rp5421bul.apps.googleusercontent.com",
+          "client_id": "544204281264-d21qe79dnifs5p06vsj6htgbalr8ugh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.ummsungpay",
+            "certificate_hash": "c20b7af1110dbe2992956d5162dc4dd1ea12a7f1"
+          }
+        },
+        {
+          "client_id": "544204281264-7mf16jqmbhbb1tg3jbtlnkvcncdjs8m5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

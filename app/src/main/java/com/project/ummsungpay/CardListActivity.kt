@@ -1,18 +1,10 @@
 package com.project.ummsungpay
 
-import android.graphics.Rect
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
-import android.util.Log
-import android.view.View
-import androidx.core.app.ActivityCompat
-import androidx.core.os.postDelayed
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_card_list.button_left
 import kotlinx.android.synthetic.main.activity_card_list.button_right
 import kotlinx.android.synthetic.main.activity_card_list.data_name
@@ -22,18 +14,14 @@ import java.util.Locale
 
 class CardListActivity : AppCompatActivity() {
 
-    private var tts: TextToSpeech? = null
-    private val REQUEST_CODE = 1
-    var index: Int = 0
+    private var tts: TextToSpeech? = null //tts 관련 변수
+    var index: Int = 0 //카드 이동용 인덱스
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_list)
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
+        
+        //tts
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
@@ -48,16 +36,19 @@ class CardListActivity : AppCompatActivity() {
             }
         }
 
+        //첫 화면에 띄울 카드정보 설정
         data_name.text = cardList[0].card_name
         data_number.text = cardList[0].card_number
         data_validity.text = cardList[0].card_validity
 
-        var cardHowMany = cardList.size
+        var cardHowMany = cardList.size //카드 개수
 
+        //안내멘트
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("총 $cardHowMany 개의 카드가 있습니다. 화면의 왼쪽이나 오른쪽을 터치하여 카드를 확인하세요.")
-        }, 1000)
+        }, 500)
 
+        //카드 이동
         button_left.setOnClickListener{
             if (index == 0) {
                 index = 1
@@ -69,7 +60,8 @@ class CardListActivity : AppCompatActivity() {
             startTTS(cardList[index-1].card_name)
             refreshUI()
         }
-
+        
+        //카드 이동
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
@@ -83,13 +75,13 @@ class CardListActivity : AppCompatActivity() {
         }
     }
 
-    fun refreshUI() {
+    fun refreshUI() { //카드 이동 시 화면상의 카드정보 변경
         data_name.text = cardList[index-1].card_name
         data_number.text = cardList[index-1].card_number
         data_validity.text = cardList[index-1].card_validity
     }
 
-    private fun startTTS(txt: String) {
+    private fun startTTS(txt: String) { //tts 실행 함수
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 }

@@ -14,16 +14,12 @@ import java.util.Locale
 class Onboarding2Activity : ComponentActivity() {
 
     private var tts: TextToSpeech? = null
-    private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding2)
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
+        //tts
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
@@ -38,12 +34,14 @@ class Onboarding2Activity : ComponentActivity() {
             }
         }
 
+        //안내멘트
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("""화면의 왼쪽과 오른쪽을 터치하여 메뉴를 변경 할 수 있습니다.
+            startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴를 선택 할 수 있습니다.
                 |화면을 길게 터치하면 선택한 메뉴로 이동합니다.
-                |화면을 터치하면 메인화면으로 이동합니다.""".trimMargin())
-        }, 1000)
+                |화면을 터치해 로그인으로 이동해주세요.""".trimMargin())
+        }, 500)
 
+        //화면 터치 -> 로그인으로 이동
         button_next.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -52,7 +50,7 @@ class Onboarding2Activity : ComponentActivity() {
         }
     }
 
-    private fun startTTS(txt: String) {
+    private fun startTTS(txt: String) { //tts 실행 함수
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 }

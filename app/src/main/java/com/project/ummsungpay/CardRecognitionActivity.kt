@@ -35,7 +35,6 @@ import java.util.Locale
 class CardRecognitionActivity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
-    private val REQUEST_CODE = 1
 
     private var previewView: PreviewView? = null
     private var textView: TextView? = null
@@ -52,36 +51,22 @@ class CardRecognitionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_recognition)
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
                 if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-
                 }
                 else {
-
                 }
             } else {
-
             }
         }
 
-        //재시도 여부 확인
-        val isRetry = intent.getIntExtra("isFail", 0)
 
-        if (isRetry == 1) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                startTTS("카드정보를 인식하지 못했습니다. 다시 시도해주세요.")
-            }, 1000)
-        } else {
-            Handler(Looper.getMainLooper()).postDelayed({
-                startTTS("카메라가 실행되었습니다.")
-            }, 1000)
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            startTTS("카메라가 실행되었습니다. 카드를 비추어주세요.")
+        }, 500)
+
 
         textView = findViewById(R.id.textView)
         previewView = findViewById(R.id.preview)
@@ -93,14 +78,6 @@ class CardRecognitionActivity : AppCompatActivity() {
             bindPreviewCase()
             bindAnalyzeUserCase() //오류 뜨지만 실행에 문제X
         }, ContextCompat.getMainExecutor(this))
-
-        /*
-        buttonNext.setOnClickListener{
-            intentNext.putExtra("recognized text", textView?.text)
-            startActivity(intentNext)
-            finish()
-        }
-        */
     }
 
     private fun bindPreviewCase() {
