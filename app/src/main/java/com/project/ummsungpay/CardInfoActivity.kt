@@ -9,6 +9,11 @@ import android.os.Looper
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_card_info.button_confirm
 import kotlinx.android.synthetic.main.activity_card_info.nameValue
 import kotlinx.android.synthetic.main.activity_card_info.numValue
@@ -28,6 +33,12 @@ class CardInfoActivity : AppCompatActivity() {
     //tts
     private var tts: TextToSpeech? = null
     private val REQUEST_CODE = 1
+
+    //파이어베이스 데이터베이스
+    private lateinit var database: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+    //파이어베이스 숫자 아이디
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -49,6 +60,14 @@ class CardInfoActivity : AppCompatActivity() {
             } else {
             }
         }
+
+        firebaseAuth = FirebaseAuth.getInstance() //firebase auth 객체
+
+        val firebaseId = firebaseAuth.currentUser?.uid.toString() //파이어베이스 숫자 아이디
+
+        //파이어베이스 데이터베이스
+        database = Firebase.database
+        databaseReference = database.getReference("users")
         
         resultCardname = intent.getStringExtra("recognized cardname").toString()
         resultCardnum = intent.getStringExtra("recognized cardnum").toString()
@@ -83,7 +102,11 @@ class CardInfoActivity : AppCompatActivity() {
         button_confirm.setOnClickListener{
             val intentComplete = Intent(this, CardAddCompleteActivity::class.java)
             intentComplete.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            cardList.add(CardData(resultCardname, resultReplace, resultValidity)) //CardData.kt에 새 카드정보 추가
+
+            //데이터베이스에 새 카드정보 추가
+            databaseReference.child(firebaseId).child("cardlist").child(resultCardname).child("number").setValue(resultReplace)
+            databaseReference.child(firebaseId).child("cardlist").child(resultCardname).child("validity").setValue(resultValidity)
+
             startActivity(intentComplete)
             finish()
         }

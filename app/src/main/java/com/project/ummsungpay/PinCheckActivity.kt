@@ -14,6 +14,8 @@ import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_pin_setting.key_remove
 import kotlinx.android.synthetic.main.activity_pin_setting.pin
 import kotlinx.android.synthetic.main.activity_pin_setting.tableLayout
@@ -47,6 +49,7 @@ class PinCheckActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("PIN번호를 한 번 더 입력해주세요.")
         }, 500)
+
 
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val btnWidth: Int = getBtnWidth()
@@ -105,6 +108,7 @@ class PinCheckActivity : AppCompatActivity() {
                         if (password.size == 6) { //6자리를 다 입력했을 경우
                             if (password == intent.getIntegerArrayListExtra("pwFirst")) { //PIN 일치할 경우
                                 val toNext2 = Intent(this, PinCompleteActivity::class.java)
+                                toNext2.putExtra("pwFinal", password) //다음 액티비티로 최종 비밀번호 전달
                                 startActivity(toNext2)
                                 finish()
                             } else {

@@ -44,7 +44,6 @@ class Onboarding2Activity : ComponentActivity() {
         //화면 터치 -> 로그인으로 이동
         button_next.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
         }

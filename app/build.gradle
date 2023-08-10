@@ -69,6 +69,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
 
+    //firebase 실시간 데이터베이스
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
+
     //지문인식
     implementation 'androidx.biometric:biometric:1.1.0'
 

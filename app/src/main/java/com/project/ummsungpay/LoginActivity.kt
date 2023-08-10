@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -15,8 +14,16 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.button_left
 import java.util.Locale
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 99
+    //파이어베이스 데이터베이스
+    private lateinit var database: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
 
     public override fun onStart() { //유저가 이미 앱에 구글 로그인을 했는지 확인
         super.onStart()
@@ -57,14 +67,18 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        database = Firebase.database
+        databaseReference = database.getReference("users")
+
         //왼쪽 버튼 -> 구글 로그인
         button_left.setOnClickListener {
             signIn()
         }
 
-        //구글 로그인 옵션 구성. requestIdToken 및 email 요청
+        //구글 로그인 옵션 구성. requestIdToken 등 요청
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
+            .requestId()
             .requestEmail()
             .build()
 
@@ -74,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    fun toCompleteActivity(user: FirebaseUser?) { //LoginCompleteActivity로 이동
+    fun toCompleteActivity(user: FirebaseUser?) {
         if (user != null) {
             startActivity(Intent(this, LoginCompleteActivity::class.java))
             finish()
@@ -104,6 +118,24 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     startTTS("로그인 되었습니다.")
+
+                    val firebaseId = firebaseAuth.currentUser?.uid.toString()
+
+                    databaseReference.addValueEventListener(object: ValueEventListener {
+                        override fun onCancelled(error: DatabaseError) {
+
+                        }
+
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val exist = snapshot.child(firebaseId)
+                            if (exist.value == null) { //기존에 로그인한 계정이 아닌 경우
+                                databaseReference.child(firebaseId).child("name")
+                                    .setValue(acct.displayName.toString())
+                                databaseReference.child(firebaseId).child("email")
+                                    .setValue(acct.email.toString())
+                            }
+                        }
+                    })
                     toCompleteActivity(firebaseAuth?.currentUser)
                 } else {
                     startTTS("로그인에 실패했습니다.")
@@ -116,7 +148,6 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-
     fun signOut() { //로그아웃
         firebaseAuth.signOut() //firebase sign out
         googleSignInClient.signOut() //google sign out
@@ -124,7 +155,6 @@ class LoginActivity : AppCompatActivity() {
                 //google sign out 이후 동작
             }
     }
-
 
     private fun revokeAccess() { //회원 탈퇴
         firebaseAuth.signOut() //firebase sign out

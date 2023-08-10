@@ -76,7 +76,7 @@ class MypageActivity : AppCompatActivity() {
         button_left.setOnLongClickListener {
             if (index == 2) {
                 signOut()
-            } else {
+            } else if (index == 1) {
                 val intent = Intent(this, PinSettingActivity::class.java)
                 startActivity(intent)
             }
@@ -86,7 +86,7 @@ class MypageActivity : AppCompatActivity() {
         button_right.setOnLongClickListener {
             if (index == 2) {
                 signOut()
-            } else {
+            } else if (index == 1) {
                 val intent = Intent(this, PinSettingActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -101,6 +101,7 @@ class MypageActivity : AppCompatActivity() {
 
         var logoutIntent = Intent(this, LoginActivity::class.java)
         logoutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startTTS("로그아웃 되었습니다. 로그인 화면으로 이동합니다.")
         startActivity(logoutIntent)
     }
 
