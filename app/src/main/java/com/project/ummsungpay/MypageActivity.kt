@@ -3,6 +3,8 @@ package com.project.ummsungpay
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -103,6 +105,9 @@ class MypageActivity : AppCompatActivity() {
         logoutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startTTS("로그아웃 되었습니다. 로그인 화면으로 이동합니다.")
         startActivity(logoutIntent)
+        Handler(Looper.getMainLooper()).postDelayed({
+            finish()
+        }, 4000)
     }
 
     private fun startTTS(txt: String) {

@@ -101,7 +101,6 @@ class CardInfoActivity : AppCompatActivity() {
 
         button_confirm.setOnClickListener{
             val intentComplete = Intent(this, CardAddCompleteActivity::class.java)
-            intentComplete.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
 
             //데이터베이스에 새 카드정보 추가
             databaseReference.child(firebaseId).child("cardlist").child(resultCardname).child("number").setValue(resultReplace)

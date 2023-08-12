@@ -34,11 +34,11 @@ class CardDeleteActivity : AppCompatActivity() {
         }
 
         //첫 화면에 띄울 카드정보 설정
-        data_name.text = cardList[0].card_name
-        data_number.text = cardList[0].card_number
-        data_validity.text = cardList[0].card_validity
+        data_name.text = fixedCardList[0].card_name
+        data_number.text = fixedCardList[0].card_number
+        data_validity.text = fixedCardList[0].card_validity
 
-        var cardHowMany = cardList.size //카드 개수
+        var cardHowMany = fixedCardList.size //카드 개수
 
         //안내 멘트
         Handler(Looper.getMainLooper()).postDelayed({
@@ -54,7 +54,7 @@ class CardDeleteActivity : AppCompatActivity() {
             } else {
                 index -= 1
             }
-            startTTS(cardList[index-1].card_name)
+            startTTS(fixedCardList[index-1].card_name)
             refreshUI()
         }
 
@@ -67,28 +67,28 @@ class CardDeleteActivity : AppCompatActivity() {
             } else {
                 index += 1
             }
-            startTTS(cardList[index-1].card_name)
+            startTTS(fixedCardList[index-1].card_name)
             refreshUI()
         }
 
         //카드 삭제
         button_left.setOnLongClickListener {
-            if(bookmark == index - 1) {
-                bookmark = -1
+            if(fixedBookmark == index - 1) {
+                fixedBookmark = -1
             }
-            startTTS("선택하신 ${cardList[index-1].card_name}를 삭제했습니다.")
-            cardList.removeAt(index-1)
+            startTTS("선택하신 ${fixedCardList[index-1].card_name}를 삭제했습니다.")
+            fixedCardList.removeAt(index-1)
             refreshUI()
             return@setOnLongClickListener(true)
         }
 
         //카드 삭제
         button_right.setOnLongClickListener {
-            if(bookmark == index - 1) {
-                bookmark = -1
+            if(fixedBookmark == index - 1) {
+                fixedBookmark = -1
             }
-            startTTS("선택하신 ${cardList[index-1].card_name}를 삭제했습니다.")
-            cardList.removeAt(index-1)
+            startTTS("선택하신 ${fixedCardList[index-1].card_name}를 삭제했습니다.")
+            fixedCardList.removeAt(index-1)
             refreshUI()
             return@setOnLongClickListener(true)
         }
@@ -99,8 +99,8 @@ class CardDeleteActivity : AppCompatActivity() {
     }
 
     fun refreshUI() { //카드 이동 시 화면상의 카드정보 변경
-        data_name.text = cardList[index-1].card_name
-        data_number.text = cardList[index-1].card_number
-        data_validity.text = cardList[index-1].card_validity
+        data_name.text = fixedCardList[index-1].card_name
+        data_number.text = fixedCardList[index-1].card_number
+        data_validity.text = fixedCardList[index-1].card_validity
     }
 }

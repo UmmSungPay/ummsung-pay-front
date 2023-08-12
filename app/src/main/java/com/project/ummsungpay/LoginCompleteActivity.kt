@@ -50,11 +50,5 @@ class LoginCompleteActivity : AppCompatActivity() {
                 }
             }
         })
-
-        button_toFirst.setOnClickListener {
-            val intent = Intent(this, PinSettingActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 }
