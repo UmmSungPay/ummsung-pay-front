@@ -113,8 +113,8 @@ class MypageActivity : AppCompatActivity() {
         var logoutIntent = Intent(this, LoginActivity::class.java)
         logoutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startTTS("로그아웃 되었습니다. 로그인 화면으로 이동합니다.")
-        startActivity(logoutIntent)
         Handler(Looper.getMainLooper()).postDelayed({
+            startActivity(logoutIntent)
             finish()
         }, 4000)
     }

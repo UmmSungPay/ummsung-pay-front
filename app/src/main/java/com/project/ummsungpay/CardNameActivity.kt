@@ -13,6 +13,15 @@ import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.postDelayed
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_card_name.button
 import java.util.Locale
 
@@ -123,7 +132,7 @@ class CardNameActivity : AppCompatActivity() {
                 cardname += matches[i]
                 Handler(Looper.getMainLooper()).postDelayed({
                     startTTS("인식된 카드 이름은" + cardname +
-                            "입니다. 맞으시면 길게, 다시 말씀하시려면 짧게 터치하세요")
+                            "입니다. 맞으시면 길게, 아니라면 짧게 터치한 뒤 다시 말씀해 주세요.")
                 }, 500)
             }
         }

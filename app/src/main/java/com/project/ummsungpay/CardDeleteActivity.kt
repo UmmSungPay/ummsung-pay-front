@@ -58,7 +58,7 @@ class CardDeleteActivity : AppCompatActivity() {
         var cardHowMany: Int = 0 //카드 개수
 
         //데이터베이스로부터 카드 목록 가져오기
-        databaseReference.addValueEventListener(object: ValueEventListener {
+        databaseReference.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }

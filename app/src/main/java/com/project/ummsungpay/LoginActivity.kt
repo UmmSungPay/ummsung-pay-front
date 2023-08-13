@@ -42,11 +42,14 @@ class LoginActivity : AppCompatActivity() {
 
         val account = GoogleSignIn.getLastSignedInAccount(this)
         if (account != null) { //이미 로그인이 되어있을 시
+            Handler(Looper.getMainLooper()).postDelayed({
+                startTTS("${account.displayName} 계정으로 로그인 되었습니다.")
+            }, 500)
             toCompleteActivity(firebaseAuth.currentUser) //메인 액티비티로 이동
         } else {
             //안내 멘트
             Handler(Looper.getMainLooper()).postDelayed({
-                startTTS("구글 로그인은 화면의 왼쪽을, 네이버 로그인은 화면의 오른쪽을 터치해주세요.")
+                startTTS("구글 로그인을 위해 화면을 터치해주세요.")
             }, 500)
         }
     }
@@ -117,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startTTS("로그인 되었습니다.")
+                    startTTS("${acct.displayName} 계정으로 로그인 되었습니다.")
 
                     val firebaseId = firebaseAuth.currentUser?.uid.toString()
 
@@ -144,16 +147,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn() { //로그인
+        Handler(Looper.getMainLooper()).postDelayed({
+            startTTS("계정을 선택해 주세요.")
+        }, 500)
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    fun signOut() { //로그아웃
-        firebaseAuth.signOut() //firebase sign out
-        googleSignInClient.signOut() //google sign out
-            .addOnCompleteListener(this) {
-                //google sign out 이후 동작
-            }
     }
 
     private fun revokeAccess() { //회원 탈퇴
