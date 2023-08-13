@@ -127,12 +127,14 @@ class CardChooseActivity : AppCompatActivity() {
                             }
                         }
                         for (card in cards.children) { //나머지를 순서대로 삽입
-                            name = card.key.toString()
-                            number = card.child("number").value.toString()
-                            validity = card.child("validity").value.toString()
+                            if (card.key != bookmark) {
+                                name = card.key.toString()
+                                number = card.child("number").value.toString()
+                                validity = card.child("validity").value.toString()
 
-                            eachCard = CardData(name, number, validity)
-                            cardList += eachCard
+                                eachCard = CardData(name, number, validity)
+                                cardList += eachCard
+                            }
                         }
                     }
 
@@ -183,7 +185,10 @@ class CardChooseActivity : AppCompatActivity() {
 
                 } else { //카드가 없을 떄
                     data_number.text = "카드 없음"
-                    startTTS("등록된 카드가 없습니다.")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        startTTS("등록된 카드가 없습니다.")
+                    }, 500)
+
                 }
             }
 

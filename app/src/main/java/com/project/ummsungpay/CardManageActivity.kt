@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_card_manage.button_left
@@ -42,6 +44,11 @@ class CardManageActivity : AppCompatActivity() {
 
             }
         }
+
+        //안내멘트
+        Handler(Looper.getMainLooper()).postDelayed({
+            startTTS("카드관리 메뉴로 들어왔습니다.")
+        }, 500)
 
         //메뉴 이동
         button_left.setOnClickListener{

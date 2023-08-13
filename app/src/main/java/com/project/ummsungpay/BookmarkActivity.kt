@@ -121,24 +121,25 @@ class BookmarkActivity : AppCompatActivity() {
                     }
                     //북마크 카드 선택
                     button_left.setOnLongClickListener {
-                        startTTS("즐겨찾기 카드로 등록되었습니다. 이전 화면으로 돌아갑니다.")
+                        startTTS("즐겨찾기 카드로 등록되었습니다. 메인 화면으로 돌아갑니다.")
                         Handler(Looper.getMainLooper()).postDelayed({
                             databaseReference.child(firebaseId).child("bookmark").setValue(cardList[index-1].card_name)
                         }, 4000)
                         return@setOnLongClickListener (true)
                     }
                     button_right.setOnLongClickListener {
-                        startTTS("즐겨찾기 카드로 등록되었습니다. 이전 화면으로 돌아갑니다.")
+                        startTTS("즐겨찾기 카드로 등록되었습니다. 메인 화면으로 돌아갑니다.")
                         Handler(Looper.getMainLooper()).postDelayed({
                             databaseReference.child(firebaseId).child("bookmark").setValue(cardList[index - 1].card_name)
                         }, 4000)
-
                         return@setOnLongClickListener (true)
                     }
 
                 } else { //카드가 없을 때
                     data_number.text = "카드 없음"
-                    startTTS("등록된 카드가 없어 즐겨찾기 카드를 설정할 수 없습니다.")
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        startTTS("등록된 카드가 없어 즐겨찾기 카드를 설정할 수 없습니다.")
+                    }, 500)
                 }
             }
         })

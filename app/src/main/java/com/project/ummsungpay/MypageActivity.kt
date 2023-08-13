@@ -29,7 +29,7 @@ class MypageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mypage)
 
         var index: Int = 0
-        var arrayOfText = arrayOf("PIN 재등록", "로그아웃")
+        var arrayOfText = arrayOf("PIN 재등록", "로그아웃", "탈퇴")
 
 
         tts = TextToSpeech(this) {
@@ -42,6 +42,11 @@ class MypageActivity : AppCompatActivity() {
             } else {
             }
         }
+
+        //안내멘트
+        Handler(Looper.getMainLooper()).postDelayed({
+            startTTS("마이페이지로 들어왔습니다.")
+        }, 500)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -56,7 +61,7 @@ class MypageActivity : AppCompatActivity() {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
-                index = 2
+                index = 3
             } else {
                 index -= 1
             }
@@ -67,7 +72,7 @@ class MypageActivity : AppCompatActivity() {
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
-            } else if (index == 2) {
+            } else if (index == 3) {
                 index = 1
             } else {
                 index += 1
@@ -75,23 +80,27 @@ class MypageActivity : AppCompatActivity() {
             startTTS(arrayOfText[index-1])
         }
 
+        val intent1 = Intent(this, PinAuthActivity::class.java)
+        val intent3 = Intent(this, DeleteAccountActivity::class.java)
+
         button_left.setOnLongClickListener {
-            if (index == 2) {
+            if (index == 1) {
+                startActivity(intent1)
+            } else if (index == 2) {
                 signOut()
-            } else if (index == 1) {
-                val intent = Intent(this, PinSettingActivity::class.java)
-                startActivity(intent)
+            } else if (index == 3) {
+                startActivity(intent3)
             }
             return@setOnLongClickListener (true)
         }
 
         button_right.setOnLongClickListener {
-            if (index == 2) {
+            if (index == 1) {
+                startActivity(intent1)
+            } else if (index == 2) {
                 signOut()
-            } else if (index == 1) {
-                val intent = Intent(this, PinSettingActivity::class.java)
-                startActivity(intent)
-                finish()
+            } else if (index == 3) {
+                startActivity(intent3)
             }
             return@setOnLongClickListener (true)
         }

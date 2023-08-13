@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
         <activity
+            android:name=".PinAuthActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DeleteAccountActivity"
+            android:exported="false" />
+        <activity
             android:name=".CardNameActivity"
             android:exported="true"
             android:launchMode="singleTask" />
@@ -104,15 +110,15 @@
             <action android:name="android.speech.RecognitionService" />
         </intent>
     </queries>
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_login.button_left
+import kotlinx.android.synthetic.main.activity_login.button_login
 import java.util.Locale
 
 
@@ -70,8 +70,8 @@ class LoginActivity : AppCompatActivity() {
         database = Firebase.database
         databaseReference = database.getReference("users")
 
-        //왼쪽 버튼 -> 구글 로그인
-        button_left.setOnClickListener {
+        //버튼 -> 구글 로그인
+        button_login.setOnClickListener {
             signIn()
         }
 

@@ -76,7 +76,7 @@ class CardInfoActivity : AppCompatActivity() {
         //카드번호, 유효기간 추출
         if (resultCardnum != null && resultValidity != null) {
             Handler(Looper.getMainLooper()).postDelayed({
-                startTTS("카드정보가 모두 인식되었습니다. 카드를 추가하시려면 화면을 터치해주세요.")
+                startTTS("카드추가가 완료되었습니다. 화면을 터치하면 메인화면으로 돌아갑니다.")
             }, 1000)
 
             //카드번호와 유효기간의 맨 처음 공백 제거
@@ -100,13 +100,11 @@ class CardInfoActivity : AppCompatActivity() {
         }
 
         button_confirm.setOnClickListener{
-            val intentComplete = Intent(this, CardAddCompleteActivity::class.java)
 
             //데이터베이스에 새 카드정보 추가
             databaseReference.child(firebaseId).child("cardlist").child(resultCardname).child("number").setValue(resultReplace)
             databaseReference.child(firebaseId).child("cardlist").child(resultCardname).child("validity").setValue(resultValidity)
 
-            startActivity(intentComplete)
             finish()
         }
 
