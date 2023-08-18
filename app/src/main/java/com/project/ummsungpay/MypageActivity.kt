@@ -29,7 +29,7 @@ class MypageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_mypage)
 
         var index: Int = 0
-        var arrayOfText = arrayOf("PIN 재등록", "로그아웃", "탈퇴")
+        var arrayOfText = arrayOf("음성안내 속도 조절", "사용안내 재청취", "로그아웃", "탈퇴")
 
 
         tts = TextToSpeech(this) {
@@ -61,7 +61,7 @@ class MypageActivity : AppCompatActivity() {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
-                index = 3
+                index = 4
             } else {
                 index -= 1
             }
@@ -72,7 +72,7 @@ class MypageActivity : AppCompatActivity() {
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
-            } else if (index == 3) {
+            } else if (index == 4) {
                 index = 1
             } else {
                 index += 1
@@ -80,16 +80,19 @@ class MypageActivity : AppCompatActivity() {
             startTTS(arrayOfText[index-1])
         }
 
-        val intent1 = Intent(this, PinAuthActivity::class.java)
-        val intent3 = Intent(this, DeleteAccountActivity::class.java)
+        val intent1 = Intent(this, ttsSpeedActivity::class.java)
+        val intent2 = Intent(this, Onboarding1Activity::class.java)
+        val intent4 = Intent(this, DeleteAccountActivity::class.java)
 
         button_left.setOnLongClickListener {
             if (index == 1) {
                 startActivity(intent1)
             } else if (index == 2) {
-                signOut()
+                startActivity(intent2)
             } else if (index == 3) {
-                startActivity(intent3)
+                signOut()
+            } else {
+                startActivity(intent4)
             }
             return@setOnLongClickListener (true)
         }
@@ -98,9 +101,11 @@ class MypageActivity : AppCompatActivity() {
             if (index == 1) {
                 startActivity(intent1)
             } else if (index == 2) {
-                signOut()
+                startActivity(intent2)
             } else if (index == 3) {
-                startActivity(intent3)
+                signOut()
+            } else {
+                startActivity((intent4))
             }
             return@setOnLongClickListener (true)
         }

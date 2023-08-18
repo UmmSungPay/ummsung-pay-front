@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun toCompleteActivity(user: FirebaseUser?) {
         if (user != null) {
-            startActivity(Intent(this, LoginCompleteActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
@@ -120,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startTTS("${acct.displayName} 계정으로 로그인 되었습니다.")
+                    startTTS("${acct.displayName} 계정으로 로그인 되었습니다. 메인화면으로 이동합니다.")
 
                     val firebaseId = firebaseAuth.currentUser?.uid.toString()
 

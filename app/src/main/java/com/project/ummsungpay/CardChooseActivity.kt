@@ -171,14 +171,12 @@ class CardChooseActivity : AppCompatActivity() {
                     button_left.setOnLongClickListener {
                         var selectedCard: String = cardList[index-1].card_name
                         startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
-                        //biometricPrompt.authenticate(promptInfo)
                         authFingerprint()
                         return@setOnLongClickListener (true)
                     }
                     button_right.setOnLongClickListener {
                         var selectedCard: String = cardList[index-1].card_name
                         startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
-                        //biometricPrompt.authenticate(promptInfo)
                         authFingerprint()
                         return@setOnLongClickListener (true)
                     }

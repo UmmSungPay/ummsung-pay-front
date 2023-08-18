@@ -93,7 +93,7 @@ class CardInfoActivity : AppCompatActivity() {
 
             }
             override fun onDataChange(snapshot: DataSnapshot) {
-                var duplicate: Boolean = false
+                var duplicate: Boolean = false //중복 카드가 있는지 확인하는 변수
 
                 var cardList = snapshot.child(firebaseId).child("cardlist")
 
@@ -106,7 +106,7 @@ class CardInfoActivity : AppCompatActivity() {
                 if (cardHowMany != 0) { //기존에 등록된 카드가 있고
                     for (card in cardList.children) {
                         if (resultReplace == card.child("number").value.toString()
-                            || resultDelete2 == card.child("validity").value.toString()) {
+                            && resultDelete2 == card.child("validity").value.toString()) {
                             //카드번호와 유효기간이 동일한 카드가 있다면
                             duplicate = true
                         }

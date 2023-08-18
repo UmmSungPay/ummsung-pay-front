@@ -1,23 +1,21 @@
 package com.project.ummsungpay
 
 import android.content.Intent
-import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
-import androidx.activity.ComponentActivity
-import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_onboarding1.button_next
 import java.util.Locale
 
-class Onboarding2Activity : ComponentActivity() {
+class Onboarding3Activity : AppCompatActivity() {
 
     private var tts: TextToSpeech? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding2)
+        setContentView(R.layout.activity_onboarding3)
 
         //tts
         tts = TextToSpeech(this) {
@@ -36,14 +34,13 @@ class Onboarding2Activity : ComponentActivity() {
 
         //안내멘트
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다.
-                |화면을 길게 터치하면 선택한 메뉴로 이동합니다.
-                |화면을 터치해 주세요.""".trimMargin())
+            startTTS("""음성페이의 모든 인증은 지문인식으로 이루어집니다.
+                    화면을 터치하여 로그인 화면으로 이동해주세요.""".trimMargin())
         }, 500)
 
         //화면 터치 -> 로그인으로 이동
         button_next.setOnClickListener{
-            val intent = Intent(this, Onboarding3Activity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
