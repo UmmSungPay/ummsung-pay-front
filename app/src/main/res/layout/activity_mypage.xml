@@ -31,7 +31,7 @@
         android:fontFamily="@font/nanum_square_b"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        android:text="음성안내 속도 조절"
+        android:text="음성 속도 조절"
         android:textAlignment="center"
         android:gravity="center"
         />

@@ -28,8 +28,10 @@ class MypageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
 
+        mypageActivity = this //탈퇴 후 액티비티 종료를 위함
+
         var index: Int = 0
-        var arrayOfText = arrayOf("음성안내 속도 조절", "사용안내 재청취", "로그아웃", "탈퇴")
+        var arrayOfText = arrayOf("음성 속도 조절", "사용안내 재청취", "로그아웃", "탈퇴")
 
 
         tts = TextToSpeech(this) {
@@ -81,14 +83,17 @@ class MypageActivity : AppCompatActivity() {
         }
 
         val intent1 = Intent(this, ttsSpeedActivity::class.java)
-        val intent2 = Intent(this, Onboarding1Activity::class.java)
         val intent4 = Intent(this, DeleteAccountActivity::class.java)
 
         button_left.setOnLongClickListener {
-            if (index == 1) {
+
+            if (index == 0) {
+
+            } else if (index == 1) {
                 startActivity(intent1)
             } else if (index == 2) {
-                startActivity(intent2)
+                startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다. 
+                    |화면을 길게 터치하면 선택한 메뉴로 이동합니다.""".trimMargin())
             } else if (index == 3) {
                 signOut()
             } else {
@@ -98,10 +103,14 @@ class MypageActivity : AppCompatActivity() {
         }
 
         button_right.setOnLongClickListener {
-            if (index == 1) {
+
+            if (index == 0) {
+
+            } else if (index == 1) {
                 startActivity(intent1)
             } else if (index == 2) {
-                startActivity(intent2)
+                startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다. 
+                    |화면을 길게 터치하면 선택한 메뉴로 이동합니다.""".trimMargin())
             } else if (index == 3) {
                 signOut()
             } else {
@@ -112,7 +121,8 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun signOut() {
-        firebaseAuth.signOut()
+        //firebaseAuth.signOut()
+        FirebaseAuth.getInstance().signOut()
         googleSignInClient?.signOut()
 
         var logoutIntent = Intent(this, LoginActivity::class.java)
@@ -126,6 +136,10 @@ class MypageActivity : AppCompatActivity() {
 
     private fun startTTS(txt: String) {
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    companion object {
+        var mypageActivity : MypageActivity? = null
     }
 
 }

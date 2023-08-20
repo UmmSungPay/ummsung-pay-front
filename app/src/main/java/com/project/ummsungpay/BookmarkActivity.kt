@@ -92,7 +92,7 @@ class BookmarkActivity : AppCompatActivity() {
                         }, 500)
                     } else { //즐겨찾기로 설정된 카드가 있을 때
                         Handler(Looper.getMainLooper()).postDelayed({
-                            startTTS("현재 즐겨찾기 카드는 $bookmark 입니다. 변경하시려면 카드를 선택한 뒤, 길게 터치하세요. ")
+                            startTTS("현재 즐겨찾기는 $bookmark 입니다. 변경하시려면 카드를 선택한 뒤, 길게 터치하세요. ")
                         }, 500)
                     }
 
@@ -121,24 +121,30 @@ class BookmarkActivity : AppCompatActivity() {
                     }
                     //북마크 카드 선택
                     button_left.setOnLongClickListener {
-                        startTTS("${cardList[index-1].card_name}가 즐겨찾기 카드로 등록되었습니다. 메인 화면으로 돌아갑니다.")
-                        Handler(Looper.getMainLooper()).postDelayed({
+                        if (index == 0) {
+                            startTTS("${cardList[0].card_name}가 즐겨찾기로 등록되었습니다.")
+                            databaseReference.child(firebaseId).child("bookmark").setValue(cardList[0].card_name)
+                        } else {
+                            startTTS("${cardList[index-1].card_name}가 즐겨찾기로 등록되었습니다.")
                             databaseReference.child(firebaseId).child("bookmark").setValue(cardList[index-1].card_name)
-                        }, 4000)
+                        }
                         return@setOnLongClickListener (true)
                     }
                     button_right.setOnLongClickListener {
-                        startTTS("${cardList[index-1].card_name}가 즐겨찾기 카드로 등록되었습니다. 메인 화면으로 돌아갑니다.")
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            databaseReference.child(firebaseId).child("bookmark").setValue(cardList[index - 1].card_name)
-                        }, 4000)
+                        if (index == 0) {
+                            startTTS("${cardList[0].card_name}가 즐겨찾기로 등록되었습니다.")
+                            databaseReference.child(firebaseId).child("bookmark").setValue(cardList[0].card_name)
+                        } else {
+                            startTTS("${cardList[index-1].card_name}가 즐겨찾기로 등록되었습니다.")
+                            databaseReference.child(firebaseId).child("bookmark").setValue(cardList[index-1].card_name)
+                        }
                         return@setOnLongClickListener (true)
                     }
 
                 } else { //카드가 없을 때
                     data_number.text = "카드 없음"
                     Handler(Looper.getMainLooper()).postDelayed({
-                        startTTS("등록된 카드가 없어 즐겨찾기 카드를 설정할 수 없습니다.")
+                        startTTS("등록된 카드가 없어 즐겨찾기를 설정할 수 없습니다.")
                     }, 500)
                 }
             }

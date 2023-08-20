@@ -12,14 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
+
         <activity
             android:name=".ttsSpeedActivity"
             android:exported="false" />
         <activity
             android:name=".Onboarding3Activity"
-            android:exported="false" />
-        <activity
-            android:name=".PinAuthActivity"
             android:exported="false" />
         <activity
             android:name=".DeleteAccountActivity"
@@ -66,16 +64,10 @@
             android:name=".PayCompleteActivity"
             android:exported="false" />
         <activity
-            android:name=".CardAddCompleteActivity"
-            android:exported="false" />
-        <activity
             android:name=".SettingCompleteActivity"
             android:exported="false" />
         <activity
             android:name=".PinCompleteActivity"
-            android:exported="true" />
-        <activity
-            android:name=".LoginCompleteActivity"
             android:exported="true" />
         <activity
             android:name=".PinCheckActivity"
@@ -120,11 +112,11 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -30,7 +30,7 @@ class PayCompleteActivity : ComponentActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("결제가 완료되었습니다. 화면을 터치하면 메인 화면으로 이동합니다.")
+            startTTS("결제가 완료되었습니다. 화면을 터치하면 메인 메뉴로 이동합니다.")
         }, 500)
 
         button_toFirst.setOnClickListener{

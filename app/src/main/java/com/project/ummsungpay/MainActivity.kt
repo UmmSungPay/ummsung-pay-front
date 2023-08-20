@@ -3,7 +3,17 @@ package com.project.ummsungpay
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.renderscript.Sampler.Value
 import android.speech.tts.TextToSpeech
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.button_left
 import kotlinx.android.synthetic.main.activity_main.button_right
 import java.util.Locale
@@ -12,11 +22,29 @@ class MainActivity : AppCompatActivity() {
 
     //tts 관련 변수
     private var tts: TextToSpeech? = null
+    //파이어베이스 데이터베이스
+    private lateinit var database: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+    //파이어베이스 숫자 아이디
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
+        //tts
+        tts = TextToSpeech(this) {
+            if (it == TextToSpeech.SUCCESS) {
+                val result = tts?.setLanguage(Locale.KOREAN)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                } else {
+                }
+            } else {
+            }
+        }
+
+        mainActivity = this //탈퇴 후 액티비티 종료를 위함
+
         var index: Int = 0 //메뉴 이동용 인덱스
         var arrayOfText = arrayOf("결제", "카드관리", "카드추가", "마이페이지") //메뉴 이동용 배열
 
@@ -28,20 +56,8 @@ class MainActivity : AppCompatActivity() {
 
         val arrayOfIntent = arrayOf(intent1, intent2, intent3, intent4) //intent의 배열
 
-        //tts
-        tts = TextToSpeech(this) {
-            if (it == TextToSpeech.SUCCESS) {
-                val result = tts?.setLanguage(Locale.KOREAN)
-                if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                }
-                else {
-                }
-            } else {
-            }
-        }
-
         //메뉴 인덱스 이동
-        button_left.setOnClickListener{
+        button_left.setOnClickListener {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
@@ -49,8 +65,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 index -= 1
             }
-            startTTS(arrayOfText[index-1])
-
+            startTTS(arrayOfText[index - 1])
         }
 
         //메뉴 인덱스 이동
@@ -62,24 +77,37 @@ class MainActivity : AppCompatActivity() {
             } else {
                 index += 1
             }
-            startTTS(arrayOfText[index-1])
+            startTTS(arrayOfText[index - 1])
         }
 
         //메뉴 선택
         button_left.setOnLongClickListener {
-            startActivity(arrayOfIntent[index-1])
+            if (index == 0) {
+                startActivity(arrayOfIntent[0])
+            } else {
+                startActivity(arrayOfIntent[index - 1])
+            }
             return@setOnLongClickListener (true)
         }
 
         //메뉴 선택
         button_right.setOnLongClickListener {
-            startActivity(arrayOfIntent[index-1])
+            if (index == 0) {
+                startActivity(arrayOfIntent[0])
+            } else {
+                startActivity(arrayOfIntent[index - 1])
+            }
             return@setOnLongClickListener (true)
         }
     }
 
     private fun startTTS(txt: String) { //tts 실행 함수
+        tts!!.setSpeechRate(1.0f)
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+    companion object {
+        var mainActivity : MainActivity? = null
     }
 
 }

@@ -41,7 +41,7 @@ class Onboarding2Activity : ComponentActivity() {
                 |화면을 터치해 주세요.""".trimMargin())
         }, 500)
 
-        //화면 터치 -> 로그인으로 이동
+        //화면 터치 -> 온보딩3으로 이동
         button_next.setOnClickListener{
             val intent = Intent(this, Onboarding3Activity::class.java)
             startActivity(intent)

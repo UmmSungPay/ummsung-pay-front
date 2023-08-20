@@ -20,6 +20,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_delete_account.button
 import java.util.Locale
 import java.util.concurrent.Executor
+import kotlin.system.exitProcess
 
 class DeleteAccountActivity : AppCompatActivity() {
 
@@ -34,6 +35,9 @@ class DeleteAccountActivity : AppCompatActivity() {
     //파이어베이스 데이터베이스
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
+    //타 액티비티 종료
+    val mainActivity = MainActivity.mainActivity
+    val mypageActivity = MypageActivity.mypageActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,65 +80,24 @@ class DeleteAccountActivity : AppCompatActivity() {
 
         //파이어베이스 데이터베이스
         database = Firebase.database
-        databaseReference = database.getReference("users")
-
-        //지문인식 결과에 따른 동작 설정
-        executor = ContextCompat.getMainExecutor(this)
-        biometricPrompt = androidx.biometric.BiometricPrompt(this, executor, object: androidx.biometric.BiometricPrompt.AuthenticationCallback() {
-            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                super.onAuthenticationError(errorCode, errString)
-            }
-
-            override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
-                super.onAuthenticationSucceeded(result)
-
-                //지문인식 성공시 계정 정보 삭제 후 로그아웃
-                databaseReference.child(firebaseId).child("name").removeValue()
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    startTTS("탈퇴되었습니다. 로그인 화면으로 이동합니다.")
-                }, 500)
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    signOut()
-                }, 5000)
-
-            }
-
-            override fun onAuthenticationFailed() {
-                super.onAuthenticationFailed()
-                startTTS("지문이 일치하지 않습니다. 다시 시도해주세요.")
-            }
-        })
-
-        //지문인식 창 설정
-        promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
-            .setTitle("음성페이")
-            .setSubtitle(" ")
-            .setNegativeButtonText(" ")
-            .build()
+        databaseReference = database.getReference("users").child(firebaseId)
 
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("탈퇴 시 모든 계정 정보가 사라집니다. 탈퇴하시려면 화면을 터치한 뒤 지문을 인식해주세요.")
         }, 500)
 
         button.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
+            authFingerprint()
         }
     }
 
     private fun signOut() {
-        firebaseAuth.signOut()
+        //firebaseAuth.signOut()
+        FirebaseAuth.getInstance().signOut()
         googleSignInClient?.signOut()
-
-        var logoutIntent = Intent(this, LoginActivity::class.java)
-        logoutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(logoutIntent)
-        finish()
     }
 
-    fun authFingerprint (id: String) {
-        /*
+    fun authFingerprint () {
         //지문인식 결과에 따른 동작 설정
         executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = androidx.biometric.BiometricPrompt(this, executor, object: androidx.biometric.BiometricPrompt.AuthenticationCallback() {
@@ -145,17 +108,20 @@ class DeleteAccountActivity : AppCompatActivity() {
             override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
 
-                //지문인식 성공시 계정 정보 삭제 후 로그아웃
-                databaseReference.child(id).removeValue()
+                signOut()
+                //지문인식 성공시 계정 정보 삭제
+                databaseReference.removeValue()
 
+                mainActivity?.finish()
+                mypageActivity?.finish()
+                
                 Handler(Looper.getMainLooper()).postDelayed({
                     startTTS("탈퇴되었습니다. 로그인 화면으로 이동합니다.")
                 }, 500)
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    signOut()
-                }, 5000)
-
+                val intent = Intent(this@DeleteAccountActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
             }
 
             override fun onAuthenticationFailed() {
@@ -172,8 +138,6 @@ class DeleteAccountActivity : AppCompatActivity() {
             .build()
 
         biometricPrompt.authenticate(promptInfo)
-
-        */
     }
 
 

@@ -34,7 +34,7 @@ class CamPermissionActivity : AppCompatActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("화면을 터치하면 카메라가 실행됩니다.")
+            startTTS("화면을 터치하면 카메라가 실행됩니다. 카드의 IC칩이 위로 가도록 위치시켜 주세요.")
         }, 1000)
 
         buttonNext.setOnClickListener{

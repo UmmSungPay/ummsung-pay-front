@@ -43,6 +43,7 @@ class CardChooseActivity : AppCompatActivity() {
     //파이어베이스 숫자 아이디
     private lateinit var firebaseAuth: FirebaseAuth
     var cardList = emptyList<CardData>() //카드 목록 저장용 list
+    var selectedCard: String = "" //선택한 카드
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -169,13 +170,21 @@ class CardChooseActivity : AppCompatActivity() {
 
                     //카드 선택
                     button_left.setOnLongClickListener {
-                        var selectedCard: String = cardList[index-1].card_name
+                        if (index == 0) {
+                            selectedCard = cardList[0].card_name
+                        } else {
+                            selectedCard = cardList[index-1].card_name
+                        }
                         startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
                         authFingerprint()
                         return@setOnLongClickListener (true)
                     }
                     button_right.setOnLongClickListener {
-                        var selectedCard: String = cardList[index-1].card_name
+                        if (index == 0) {
+                            selectedCard = cardList[0].card_name
+                        } else {
+                            selectedCard = cardList[index-1].card_name
+                        }
                         startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
                         authFingerprint()
                         return@setOnLongClickListener (true)

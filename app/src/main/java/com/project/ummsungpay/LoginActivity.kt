@@ -154,14 +154,6 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun revokeAccess() { //회원 탈퇴
-        firebaseAuth.signOut() //firebase sign out
-        googleSignInClient.revokeAccess()
-            .addOnCompleteListener(this) {
-                //회원 탈퇴 후 동작
-            }
-    }
-
     private fun startTTS(txt: String) { //tts 실행 함수
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }

@@ -64,7 +64,7 @@ class CardRecognitionActivity : AppCompatActivity() {
 
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("카메라가 실행되었습니다. 카드를 비추어주세요.")
+            startTTS("카메라가 실행되었습니다.")
         }, 500)
 
 

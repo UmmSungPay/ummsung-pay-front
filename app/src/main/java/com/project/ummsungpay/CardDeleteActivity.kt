@@ -82,7 +82,7 @@ class CardDeleteActivity : AppCompatActivity() {
                 if (cardList.size != 0) { //카드가 있을 때
 
                     Handler(Looper.getMainLooper()).postDelayed({
-                        startTTS("""카드를 선택한 뒤 길게 터치하면 선택하신 카드가 삭제됩니다.""")
+                        startTTS("""카드를 선택한 뒤 길게 터치하면 선택한 카드가 삭제됩니다.""")
                     }, 500)
 
                     data_name.text = cardList[0].card_name
@@ -101,6 +101,7 @@ class CardDeleteActivity : AppCompatActivity() {
                         startTTS(cardList[index-1].card_name)
                         refreshUI()
                     }
+
                     button_right.setOnClickListener {
                         if (index == 0) {
                             index = 1
@@ -115,27 +116,58 @@ class CardDeleteActivity : AppCompatActivity() {
 
                     //삭제할 카드 선택
                     button_left.setOnLongClickListener {
-                        if (bookmark == cardList[index-1].card_name) { //선택한 카드가 즐겨찾기 카드라면
+
+                        if (index != 0 && bookmark == cardList[index-1].card_name) { //선택한 카드가 즐겨찾기 카드라면
                             //데이터베이스에서 bookmark 삭제
                             databaseReference.child(firebaseId).child("bookmark").removeValue()
+                        } else if (index == 0 && bookmark == cardList[0].card_name) {
+                            databaseReference.child(firebaseId).child("bookmark").removeValue()
                         }
-                        startTTS("${cardList[index-1].card_name}을 삭제했습니다. 메인화면으로 돌아갑니다.")
-                        //선택한 카드 삭제
-                        Handler(Looper.getMainLooper()).postDelayed({
+
+                        if (index == 0) {
+                            startTTS("${cardList[0].card_name} 카드를 삭제했습니다. 이전 메뉴로 돌아갑니다.")
+                            //선택한 카드 삭제
+                            databaseReference.child(firebaseId).child("cardlist").child(cardList[0].card_name).removeValue()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                finish()
+                            }, 4000)
+                        } else {
+                            startTTS("${cardList[index-1].card_name} 카드를 삭제했습니다. 이전 메뉴로 돌아갑니다.")
+                            //선택한 카드 삭제
                             databaseReference.child(firebaseId).child("cardlist").child(cardList[index-1].card_name).removeValue()
-                        }, 4000)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                finish()
+                            }, 4000)
+                        }
+
                         return@setOnLongClickListener (true)
                     }
+
                     button_right.setOnLongClickListener {
-                        if (bookmark == cardList[index-1].card_name) { //선택한 카드가 즐겨찾기 카드라면
+
+                        if (index != 0 && bookmark == cardList[index-1].card_name) { //선택한 카드가 즐겨찾기 카드라면
                             //데이터베이스에서 bookmark 삭제
                             databaseReference.child(firebaseId).child("bookmark").removeValue()
+                        } else if (index == 0 && bookmark == cardList[0].card_name) {
+                            databaseReference.child(firebaseId).child("bookmark").removeValue()
                         }
-                        startTTS("${cardList[index-1].card_name}을 삭제했습니다. 메인화면으로 돌아갑니다.")
-                        //선택한 카드 삭제
-                        Handler(Looper.getMainLooper()).postDelayed({
+
+                        if (index == 0) {
+                            startTTS("${cardList[0].card_name}을 삭제했습니다. 이전 메뉴로 돌아갑니다.")
+                            //선택한 카드 삭제
+                            databaseReference.child(firebaseId).child("cardlist").child(cardList[0].card_name).removeValue()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                finish()
+                            }, 4000)
+                        } else {
+                            startTTS("${cardList[index-1].card_name}을 삭제했습니다. 이전 메뉴로 돌아갑니다.")
+                            //선택한 카드 삭제
                             databaseReference.child(firebaseId).child("cardlist").child(cardList[index-1].card_name).removeValue()
-                        }, 4000)
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                finish()
+                            }, 4000)
+                        }
+
                         return@setOnLongClickListener (true)
                     }
                 } else { //카드가 없을 때

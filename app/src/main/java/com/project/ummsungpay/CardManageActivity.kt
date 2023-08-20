@@ -77,13 +77,21 @@ class CardManageActivity : AppCompatActivity() {
 
         //메뉴 선택
         button_left.setOnLongClickListener {
-            startActivity(arrayOfIntent[index-1])
+            if (index == 0) {
+                startActivity(arrayOfIntent[0])
+            } else {
+                startActivity(arrayOfIntent[index - 1])
+            }
             return@setOnLongClickListener (true)
         }
 
         //메뉴 선택
         button_right.setOnLongClickListener {
-            startActivity(arrayOfIntent[index-1])
+            if (index == 0) {
+                startActivity(arrayOfIntent[0])
+            } else {
+                startActivity(arrayOfIntent[index-1])
+            }
             return@setOnLongClickListener (true)
         }
     }
