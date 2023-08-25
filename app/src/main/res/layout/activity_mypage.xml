@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MypageActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/thejamsil_3_regular"
+        android:textColor="#1F63E7"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="UMMSUNG Pay" />
+
+    <TextView
+        android:id="@+id/mypageTTS"
+        android:layout_width="319dp"
+        android:layout_height="49.49dp"
+        android:background="@drawable/button_next"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mypageReplay"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:text="음성 속도 조절"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/mypageReplay"
+        android:layout_width="319dp"
+        android:layout_height="49.49dp"
+        android:background="@drawable/button_next"
+        app:layout_constraintTop_toBottomOf="@id/mypageTTS"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mypageLogout"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:text="사용안내 재청취"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/mypageLogout"
+        android:layout_width="319dp"
+        android:layout_height="49.49dp"
+        android:background="@drawable/button_next"
+        app:layout_constraintTop_toBottomOf="@id/mypageReplay"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mypageDelete"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:text="로그아웃"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/mypageDelete"
+        android:layout_width="319dp"
+        android:layout_height="49.49dp"
+        android:background="@drawable/button_next"
+        app:layout_constraintTop_toBottomOf="@id/mypageLogout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:fontFamily="@font/nanum_square_b"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:text="탈퇴"
+        android:textAlignment="center"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <Button
+            android:id="@+id/button_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

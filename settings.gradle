@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal() //텍스트 인식
     }
 }
 rootProject.name = "ummsungpay"

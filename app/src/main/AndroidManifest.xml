@@ -12,10 +12,84 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ummsungpay"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ttsSpeedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Onboarding3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".DeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardNameActivity"
+            android:exported="true"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".BookmarkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardDeleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardManageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CardChooseActivity"
+            android:exported="true"
+            android:label="@string/title_activity_card_pay"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".MypageActivity"
+            android:exported="false"
+            android:label="@string/title_activity_mypage"
+            android:theme="@style/Theme.Ummsungpay" />
         <activity
             android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CardRecognitionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CamPermissionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CardInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PayCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingCompleteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PinCompleteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PinCheckActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PinSettingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Onboarding2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Onboarding1Activity"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_onboarding1"
+            android:theme="@style/Theme.Ummsungpay" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:label="음성페이"
             android:theme="@style/Theme.Ummsungpay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +97,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr, ocr_korean" />
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

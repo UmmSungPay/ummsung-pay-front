@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CardInfoActivity">
+
+    <TextView
+        android:id="@+id/page_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/thejamsil_5_bold"
+        android:text="카드 추가" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/page_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        android:background="#F5F5F5" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toTopOf="@id/num"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="30dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="20sp"
+        android:textColor="#4F4F4F"
+        android:text="카드이름"/>
+
+    <TextView
+        android:id="@+id/num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintBottom_toTopOf="@id/validity"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="20sp"
+        android:textColor="#4F4F4F"
+        android:text="카드번호" />
+
+    <TextView
+        android:id="@+id/validity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/num"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="20sp"
+        android:textColor="#4F4F4F"
+        android:text="유효기간" />
+
+    <TextView
+        android:id="@+id/nameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toTopOf="@id/numValue"
+        app:layout_constraintLeft_toRightOf="@id/name"
+        android:layout_marginStart="25dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="20sp"
+        android:textColor="#4F4F4F"/>
+
+    <TextView
+        android:id="@+id/numValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/nameValue"
+        app:layout_constraintBottom_toTopOf="@id/validityValue"
+        app:layout_constraintLeft_toRightOf="@id/num"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="20sp"
+        android:textColor="#4F4F4F" />
+
+    <TextView
+        android:id="@+id/validityValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/numValue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/validity"
+        android:layout_marginTop="21dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square"
+        android:textSize="20sp"
+        android:textColor="#4F4F4F" />
+
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

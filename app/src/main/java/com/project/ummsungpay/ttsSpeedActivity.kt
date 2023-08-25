@@ -1,11 +1,9 @@
 package com.project.ummsungpay
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.Sampler.Value
 import android.speech.tts.TextToSpeech
-import android.widget.Toast
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -13,101 +11,91 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.values
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_main.button_left
-import kotlinx.android.synthetic.main.activity_main.button_right
+import kotlinx.android.synthetic.main.activity_tts_speed.button_left
+import kotlinx.android.synthetic.main.activity_tts_speed.button_right
 import java.util.Locale
 
-class MainActivity : AppCompatActivity() {
+class ttsSpeedActivity : AppCompatActivity() {
 
-    //tts 관련 변수
-    private var tts: TextToSpeech? = null
+    private var tts: TextToSpeech? = null //tts 관련 변수
     //파이어베이스 데이터베이스
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     //파이어베이스 숫자 아이디
     private lateinit var firebaseAuth: FirebaseAuth
+    var speed : Float = 1.0f //음성 안내 속도
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_tts_speed)
 
         //tts
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
-                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                } else {
+                if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+
+                }
+                else {
+
                 }
             } else {
+
             }
         }
 
-        mainActivity = this //탈퇴 후 액티비티 종료를 위함
+        firebaseAuth = FirebaseAuth.getInstance() //firebase auth 객체
 
-        var index: Int = 0 //메뉴 이동용 인덱스
-        var arrayOfText = arrayOf("결제", "카드관리", "카드추가", "마이페이지") //메뉴 이동용 배열
+        val firebaseId = firebaseAuth.currentUser?.uid.toString() //파이어베이스 숫자 아이디
 
-        //액티비티별 intent
-        val intent1 = Intent(this, CardChooseActivity::class.java)
-        val intent2 = Intent(this, CardManageActivity::class.java)
-        val intent3 = Intent(this, CamPermissionActivity::class.java)
-        val intent4 = Intent(this, MypageActivity::class.java)
+        //파이어베이스 데이터베이스
+        database = Firebase.database
+        databaseReference = database.getReference("users")
 
-        val arrayOfIntent = arrayOf(intent1, intent2, intent3, intent4) //intent의 배열
+        var index = 0 //메뉴 이동용 인덱스
+        var arrayOfText = arrayOf("기본", "약간 빠르게", "빠르게")
+        var arrayOfSpeed = arrayOf(1.0f, 1.4f, 1.8f)
 
-        //메뉴 인덱스 이동
         button_left.setOnClickListener {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
-                index = 4
+                index = 3
             } else {
                 index -= 1
             }
-            startTTS(arrayOfText[index - 1])
+            startTTS(arrayOfText[index-1])
         }
 
-        //메뉴 인덱스 이동
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
-            } else if (index == 4) {
+            } else if (index == 3) {
                 index = 1
             } else {
                 index += 1
             }
-            startTTS(arrayOfText[index - 1])
+            startTTS(arrayOfText[index-1])
         }
 
-        //메뉴 선택
         button_left.setOnLongClickListener {
-            if (index == 0) {
-                startActivity(arrayOfIntent[0])
-            } else {
-                startActivity(arrayOfIntent[index - 1])
-            }
+            databaseReference.child(firebaseId).child("speed").setValue(arrayOfSpeed[index-1])
+            startTTS("음성 속도가 변경되었습니다.")
             return@setOnLongClickListener (true)
         }
 
-        //메뉴 선택
         button_right.setOnLongClickListener {
-            if (index == 0) {
-                startActivity(arrayOfIntent[0])
-            } else {
-                startActivity(arrayOfIntent[index - 1])
-            }
+            databaseReference.child(firebaseId).child("speed").setValue(arrayOfSpeed[index-1])
+            startTTS("음성 속도가 변경되었습니다.")
             return@setOnLongClickListener (true)
         }
+
     }
 
     private fun startTTS(txt: String) { //tts 실행 함수
-        tts!!.setSpeechRate(1.0f)
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
-    }
-
-    companion object {
-        var mainActivity : MainActivity? = null
     }
 
 }

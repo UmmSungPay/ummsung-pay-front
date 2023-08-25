@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PinSettingActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/thejamsil_3_regular"
+        android:textColor="#1F63E7"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:text="UMMSUNG Pay" />
+
+    <TextView
+        android:id="@+id/instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/pin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:fontFamily="@font/nanum_square_r"
+        android:textSize="20sp"
+        android:textColor="#696969"
+        android:text="PIN번호 6자리를 입력해주세요."/>
+
+    <TextView
+        android:id="@+id/pin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/instruction"
+        app:layout_constraintBottom_toTopOf="@id/keypad"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:textColor="#1F63E7"
+        android:textSize="100sp"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/keypad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="#0C1F45"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1,2">
+
+            <TableRow>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+
+                <Button
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"/>
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:layout_column="1"
+                    android:layout_height="100dp"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:textSize="40sp" />
+
+                <Button
+                    android:id="@+id/key_remove"
+                    android:layout_height="match_parent"
+                    android:layout_column="2"
+                    android:background="#0C1F45"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:textColor="@color/white"
+                    android:text="←"
+                    android:textSize="40sp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
