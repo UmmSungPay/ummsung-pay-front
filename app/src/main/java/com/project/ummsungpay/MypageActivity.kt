@@ -82,7 +82,7 @@ class MypageActivity : AppCompatActivity() {
             startTTS(arrayOfText[index-1])
         }
 
-        val intent1 = Intent(this, ttsSpeedActivity::class.java)
+        //val intent1 = Intent(this, ttsSpeedActivity::class.java)
         val intent4 = Intent(this, DeleteAccountActivity::class.java)
 
         button_left.setOnLongClickListener {
@@ -90,7 +90,7 @@ class MypageActivity : AppCompatActivity() {
             if (index == 0) {
 
             } else if (index == 1) {
-                startActivity(intent1)
+                //startActivity(intent1)
             } else if (index == 2) {
                 startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다. 
                     |화면을 길게 터치하면 선택한 메뉴로 이동합니다.""".trimMargin())
@@ -107,7 +107,7 @@ class MypageActivity : AppCompatActivity() {
             if (index == 0) {
 
             } else if (index == 1) {
-                startActivity(intent1)
+                //startActivity(intent1)
             } else if (index == 2) {
                 startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다. 
                     |화면을 길게 터치하면 선택한 메뉴로 이동합니다.""".trimMargin())

@@ -36,14 +36,15 @@ class Onboarding2Activity : ComponentActivity() {
 
         //안내멘트
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다.
-                |화면을 길게 터치하면 선택한 메뉴로 이동합니다.
+            startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택하고, 어떤 메뉴와 카드인지 들을 수 있습니다.
+                |화면을 길게 터치하면 선택한 메뉴로 이동하거나 카드를 선택할 수 있습니다.
                 |화면을 터치해 주세요.""".trimMargin())
         }, 500)
 
         //화면 터치 -> 온보딩3으로 이동
         button_next.setOnClickListener{
             val intent = Intent(this, Onboarding3Activity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
         }

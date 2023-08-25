@@ -3,6 +3,8 @@ package com.project.ummsungpay
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.renderscript.Sampler.Value
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
@@ -42,6 +44,12 @@ class MainActivity : AppCompatActivity() {
             } else {
             }
         }
+
+        //안내멘트
+        Handler(Looper.getMainLooper()).postDelayed({
+            startTTS("""메인화면으로 들어왔습니다. 왼쪽 또는 오른쪽 화면을 터치해 메뉴를 선택하고 어떤 메뉴인지 들을 수 있습니다. 
+                |길게 터치하면 해당 메뉴로 이동합니다.""".trimMargin())
+        }, 500)
 
         mainActivity = this //탈퇴 후 액티비티 종료를 위함
 
@@ -102,7 +110,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startTTS(txt: String) { //tts 실행 함수
-        tts!!.setSpeechRate(1.0f)
         tts!!.speak(txt, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 

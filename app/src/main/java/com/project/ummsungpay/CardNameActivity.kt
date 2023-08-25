@@ -2,6 +2,7 @@ package com.project.ummsungpay
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,6 +39,8 @@ class CardNameActivity : AppCompatActivity() {
     private var cardnum: String = ""
     private var validity: String = ""
 
+    var mediaPlayer : MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_name)
@@ -66,12 +69,18 @@ class CardNameActivity : AppCompatActivity() {
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, packageName)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko_KR")
 
+        //효과음
+        mediaPlayer = MediaPlayer.create(this, R.raw.ding_sound_effect)
+
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("카드번호와 유효기간을 인식했습니다. 화면을 터치한 뒤 카드 이름을 말씀해주세요.")
         }, 500)
 
         //음성인식 시작
         button.setOnClickListener{
+            //효과음 재생
+            mediaPlayer?.start()
+
             cardname = ""
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this@CardNameActivity)
             speechRecognizer.setRecognitionListener(recognitionListener)

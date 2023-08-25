@@ -118,7 +118,7 @@ class CardListActivity : AppCompatActivity() {
 
         //안내멘트
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("총 $cardHowMany 개의 카드가 있습니다.")
+            startTTS("총 $cardHowMany 개의 카드가 있습니다. 화면을 터치해 카드를 확인하세요.")
         }, 500)
     }
 

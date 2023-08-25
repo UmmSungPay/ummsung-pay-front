@@ -38,6 +38,7 @@ class Onboarding1Activity : AppCompatActivity() {
         //화면 터치 -> 온보딩2로 이동
         button_next.setOnClickListener {
             val intent = Intent(this, Onboarding2Activity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
             finish()
         }

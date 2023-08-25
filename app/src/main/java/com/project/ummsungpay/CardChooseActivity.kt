@@ -96,7 +96,7 @@ class CardChooseActivity : AppCompatActivity() {
                 //데이터베이스로부터 카드 목록 가져오기
                 var cards = snapshot.child(firebaseId).child("cardlist")
 
-                for (card in cards.children) {
+                for (card in cards.children) { //카드 갯수 세기
                     cardHowMany += 1
                 }
 
@@ -175,7 +175,7 @@ class CardChooseActivity : AppCompatActivity() {
                         } else {
                             selectedCard = cardList[index-1].card_name
                         }
-                        startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
+                        startTTS("$selectedCard 카드를 선택하셨습니다. 지문을 인식해주세요.")
                         authFingerprint()
                         return@setOnLongClickListener (true)
                     }
@@ -185,7 +185,7 @@ class CardChooseActivity : AppCompatActivity() {
                         } else {
                             selectedCard = cardList[index-1].card_name
                         }
-                        startTTS("$selectedCard 를 선택하셨습니다. 지문을 인식해주세요.")
+                        startTTS("$selectedCard 카드를 선택하셨습니다. 지문을 인식해주세요.")
                         authFingerprint()
                         return@setOnLongClickListener (true)
                     }

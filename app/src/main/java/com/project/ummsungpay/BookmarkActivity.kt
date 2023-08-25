@@ -92,7 +92,7 @@ class BookmarkActivity : AppCompatActivity() {
                         }, 500)
                     } else { //즐겨찾기로 설정된 카드가 있을 때
                         Handler(Looper.getMainLooper()).postDelayed({
-                            startTTS("현재 즐겨찾기는 $bookmark 입니다. 변경하시려면 카드를 선택한 뒤, 길게 터치하세요. ")
+                            startTTS("현재 즐겨찾기는 $bookmark 카드입니다. 변경하시려면 카드를 선택한 뒤, 길게 터치하세요. ")
                         }, 500)
                     }
 
@@ -122,20 +122,20 @@ class BookmarkActivity : AppCompatActivity() {
                     //북마크 카드 선택
                     button_left.setOnLongClickListener {
                         if (index == 0) {
-                            startTTS("${cardList[0].card_name}가 즐겨찾기로 등록되었습니다.")
+                            startTTS("${cardList[0].card_name} 카드가 즐겨찾기로 등록되었습니다.")
                             databaseReference.child(firebaseId).child("bookmark").setValue(cardList[0].card_name)
                         } else {
-                            startTTS("${cardList[index-1].card_name}가 즐겨찾기로 등록되었습니다.")
+                            startTTS("${cardList[index-1].card_name} 카드가 즐겨찾기로 등록되었습니다.")
                             databaseReference.child(firebaseId).child("bookmark").setValue(cardList[index-1].card_name)
                         }
                         return@setOnLongClickListener (true)
                     }
                     button_right.setOnLongClickListener {
                         if (index == 0) {
-                            startTTS("${cardList[0].card_name}가 즐겨찾기로 등록되었습니다.")
+                            startTTS("${cardList[0].card_name} 카드가 즐겨찾기로 등록되었습니다.")
                             databaseReference.child(firebaseId).child("bookmark").setValue(cardList[0].card_name)
                         } else {
-                            startTTS("${cardList[index-1].card_name}가 즐겨찾기로 등록되었습니다.")
+                            startTTS("${cardList[index-1].card_name} 카드가 즐겨찾기로 등록되었습니다.")
                             databaseReference.child(firebaseId).child("bookmark").setValue(cardList[index-1].card_name)
                         }
                         return@setOnLongClickListener (true)
