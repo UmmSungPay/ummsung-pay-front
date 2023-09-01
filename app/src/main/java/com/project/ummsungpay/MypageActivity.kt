@@ -31,7 +31,7 @@ class MypageActivity : AppCompatActivity() {
         mypageActivity = this //탈퇴 후 액티비티 종료를 위함
 
         var index: Int = 0
-        var arrayOfText = arrayOf("음성 속도 조절", "사용안내 재청취", "로그아웃", "탈퇴")
+        var arrayOfText = arrayOf("사용안내 재청취", "로그아웃", "탈퇴")
 
 
         tts = TextToSpeech(this) {
@@ -82,39 +82,30 @@ class MypageActivity : AppCompatActivity() {
             startTTS(arrayOfText[index-1])
         }
 
-        //val intent1 = Intent(this, ttsSpeedActivity::class.java)
-        val intent4 = Intent(this, DeleteAccountActivity::class.java)
+        val intent3 = Intent(this, DeleteAccountActivity::class.java)
 
         button_left.setOnLongClickListener {
 
-            if (index == 0) {
-
-            } else if (index == 1) {
-                //startActivity(intent1)
-            } else if (index == 2) {
+            if (index == 0 || index == 1) {
                 startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다. 
                     |화면을 길게 터치하면 선택한 메뉴로 이동합니다.""".trimMargin())
-            } else if (index == 3) {
+            } else if (index == 2) {
                 signOut()
             } else {
-                startActivity(intent4)
+                startActivity((intent3))
             }
             return@setOnLongClickListener (true)
         }
 
         button_right.setOnLongClickListener {
 
-            if (index == 0) {
-
-            } else if (index == 1) {
-                //startActivity(intent1)
-            } else if (index == 2) {
+            if (index == 0 || index == 1) {
                 startTTS("""화면의 왼쪽과 오른쪽을 터치해 메뉴와 카드를 선택 할 수 있습니다. 
                     |화면을 길게 터치하면 선택한 메뉴로 이동합니다.""".trimMargin())
-            } else if (index == 3) {
+            } else if (index == 2) {
                 signOut()
             } else {
-                startActivity((intent4))
+                startActivity((intent3))
             }
             return@setOnLongClickListener (true)
         }

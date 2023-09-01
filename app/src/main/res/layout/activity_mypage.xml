@@ -20,28 +20,11 @@
         android:text="UMMSUNG Pay" />
 
     <TextView
-        android:id="@+id/mypageTTS"
-        android:layout_width="319dp"
-        android:layout_height="49.49dp"
-        android:background="@drawable/button_next"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/mypageReplay"
-        android:fontFamily="@font/nanum_square_b"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:text="음성 속도 조절"
-        android:textAlignment="center"
-        android:gravity="center"
-        />
-
-    <TextView
         android:id="@+id/mypageReplay"
         android:layout_width="319dp"
         android:layout_height="49.49dp"
         android:background="@drawable/button_next"
-        app:layout_constraintTop_toBottomOf="@id/mypageTTS"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/mypageLogout"
