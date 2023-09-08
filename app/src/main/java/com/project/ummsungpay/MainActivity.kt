@@ -8,6 +8,7 @@ import android.os.Looper
 import android.renderscript.Sampler.Value
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback) //뒤로가기 콜백
 
         //tts
         tts = TextToSpeech(this) {
@@ -116,5 +119,14 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var mainActivity : MainActivity? = null
     }
+
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            startTTS("음성페이를 종료합니다.")
+            finish()
+        }
+    }
+
 
 }

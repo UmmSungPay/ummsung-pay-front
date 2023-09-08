@@ -21,14 +21,15 @@ class CardManageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_card_manage)
 
         var index: Int = 0 //카드 이동용 인덱스
-        var arrayOfText = arrayOf("카드목록 확인", "즐겨찾기 카드", "카드 삭제") //메뉴 이동용 배열
+        var arrayOfText = arrayOf("카드목록 확인", "즐겨찾기 카드", "카드 이름 수정", "카드 삭제") //메뉴 이동용 배열
 
         //액티비티별 intent
         val intent1 = Intent(this, CardListActivity::class.java)
         val intent2 = Intent(this, BookmarkActivity::class.java)
-        val intent3 = Intent(this, CardDeleteActivity::class.java)
+        val intent3 = Intent(this, NameEditActivity::class.java)
+        val intent4 = Intent(this, CardDeleteActivity::class.java)
 
-        val arrayOfIntent = arrayOf(intent1, intent2, intent3) //intent의 배열
+        val arrayOfIntent = arrayOf(intent1, intent2, intent3, intent4) //intent의 배열
         
         //tts
         tts = TextToSpeech(this) {
@@ -55,7 +56,7 @@ class CardManageActivity : AppCompatActivity() {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
-                index = 3
+                index = 4
             } else {
                 index -= 1
             }
@@ -67,7 +68,7 @@ class CardManageActivity : AppCompatActivity() {
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
-            } else if (index == 3) {
+            } else if (index == 4) {
                 index = 1
             } else {
                 index += 1
@@ -90,7 +91,7 @@ class CardManageActivity : AppCompatActivity() {
             if (index == 0) {
                 startActivity(arrayOfIntent[0])
             } else {
-                startActivity(arrayOfIntent[index-1])
+                startActivity(arrayOfIntent[index - 1])
             }
             return@setOnLongClickListener (true)
         }

@@ -1,6 +1,5 @@
 package com.project.ummsungpay
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -25,7 +24,6 @@ import java.util.Locale
 import java.util.concurrent.Executor
 
 class CardDeleteActivity : AppCompatActivity() {
-
     private var tts: TextToSpeech? = null //tts 관련 변수
     var index : Int = 0 //카드 이동용 인덱스
     //지문인식

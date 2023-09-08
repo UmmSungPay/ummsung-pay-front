@@ -63,7 +63,7 @@ class MypageActivity : AppCompatActivity() {
             if (index == 0) {
                 index = 1
             } else if (index == 1) {
-                index = 4
+                index = 3
             } else {
                 index -= 1
             }
@@ -74,7 +74,7 @@ class MypageActivity : AppCompatActivity() {
         button_right.setOnClickListener {
             if (index == 0) {
                 index = 1
-            } else if (index == 4) {
+            } else if (index == 3) {
                 index = 1
             } else {
                 index += 1

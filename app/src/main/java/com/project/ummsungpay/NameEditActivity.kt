@@ -1,11 +1,11 @@
 package com.project.ummsungpay
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -14,29 +14,36 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_card_list.button_left
-import kotlinx.android.synthetic.main.activity_card_list.button_right
-import kotlinx.android.synthetic.main.activity_card_list.data_name
-import kotlinx.android.synthetic.main.activity_card_list.data_number
-import kotlinx.android.synthetic.main.activity_card_list.data_validity
+import kotlinx.android.synthetic.main.activity_card_choose.button_left
+import kotlinx.android.synthetic.main.activity_card_choose.button_right
+import kotlinx.android.synthetic.main.activity_card_choose.data_name
+import kotlinx.android.synthetic.main.activity_card_choose.data_number
+import kotlinx.android.synthetic.main.activity_card_choose.data_validity
 import java.util.Locale
+import java.util.concurrent.Executor
 
-class CardListActivity : AppCompatActivity() {
+class NameEditActivity : AppCompatActivity() {
 
-    private var tts: TextToSpeech? = null //tts 관련 변수
-    var index: Int = 0 //카드 이동용 인덱스
-
+    //tts
+    private var tts: TextToSpeech? = null
+    //카드 선택
+    var index: Int = 0
+    var newCardList = emptyList<CardData>()
+    var temp = CardData("", "", "")
     //파이어베이스 데이터베이스
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     //파이어베이스 숫자 아이디
     private lateinit var firebaseAuth: FirebaseAuth
-    var cardList = emptyList<CardData>() //카드목록 저장용 list
+    var cardList = emptyList<CardData>() //카드 목록 저장용 list
+    var selectedCard: String = "" //선택한 카드
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_card_list)
-        
+        setContentView(R.layout.activity_name_edit)
+
+        val intent = Intent(this, NameEdit2Activity::class.java)
+
         //tts
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
@@ -59,37 +66,48 @@ class CardListActivity : AppCompatActivity() {
 
         var cardHowMany: Int = 0 //카드 개수
 
-        //데이터베이스로부터 카드 목록 가져오기
-        databaseReference.addListenerForSingleValueEvent(object: ValueEventListener {
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
+
             override fun onDataChange(snapshot: DataSnapshot) {
+
+                //데이터베이스로부터 카드 목록 가져오기
                 var cards = snapshot.child(firebaseId).child("cardlist")
-                for (card in cards.children) {
 
-                    var name = card.key.toString()
-                    var number = card.child("number").value.toString()
-                    var validity = card.child("validity").value.toString()
-
-                    var eachCard = CardData(name, number, validity)
-                    cardList += eachCard
+                for (card in cards.children) { //카드 갯수 세기
                     cardHowMany += 1
                 }
 
-                if (cardList.size != 0) { //카드가 있을 때
+                var name : String = ""
+                var number : String = ""
+                var validity : String = ""
+                var eachCard = CardData("", "", "")
+
+                if (cardHowMany != 0) { //카드가 있을 때
 
                     //안내멘트
                     Handler(Looper.getMainLooper()).postDelayed({
-                        startTTS("총 $cardHowMany 개의 카드가 있습니다. 화면을 터치해 카드를 확인하세요.")
+                        startTTS("총 $cardHowMany 개의 카드가 있습니다. 길게 터치하여 카드를 선택한 후 이름을 수정할 수 있습니다.")
                     }, 500)
 
+                    for (card in cards.children) {
+                        name = card.key.toString()
+                        number = card.child("number").value.toString()
+                        validity = card.child("validity").value.toString()
+
+                        eachCard = CardData(name, number, validity)
+                        cardList += eachCard
+                    }
+
+                    //첫 화면에 뜰 카드
                     data_name.text = cardList[0].card_name
                     data_number.text = cardList[0].card_number
                     data_validity.text = cardList[0].card_validity
 
                     //카드 이동
-                    button_left.setOnClickListener{
+                    button_left.setOnClickListener {
                         if (index == 0) {
                             index = 1
                         } else if (index == 1) {
@@ -97,11 +115,9 @@ class CardListActivity : AppCompatActivity() {
                         } else {
                             index -= 1
                         }
-                        startTTS(cardList[index-1].card_name)
+                        startTTS(cardList[index - 1].card_name)
                         refreshUI()
                     }
-
-                    //카드 이동
                     button_right.setOnClickListener {
                         if (index == 0) {
                             index = 1
@@ -110,16 +126,43 @@ class CardListActivity : AppCompatActivity() {
                         } else {
                             index += 1
                         }
-                        startTTS(cardList[index-1].card_name)
+                        startTTS(cardList[index - 1].card_name)
                         refreshUI()
                     }
-                } else { //카드가 없을 때
+
+                    //카드 선택
+                    button_left.setOnLongClickListener {
+                        if (index == 0) {
+                            selectedCard = cardList[0].card_name
+                        } else {
+                            selectedCard = cardList[index-1].card_name
+                        }
+                        startTTS("$selectedCard 카드의 이름을 수정합니다.")
+                        intent.putExtra("CardNow", cardList[index - 1].card_name)
+                        startActivity(intent)
+                        finish()
+                        return@setOnLongClickListener (true)
+                    }
+                    button_right.setOnLongClickListener {
+                        if (index == 0) {
+                            selectedCard = cardList[0].card_name
+                        } else {
+                            selectedCard = cardList[index-1].card_name
+                        }
+                        startTTS("$selectedCard 카드의 이름을 수정합니다.")
+                        intent.putExtra("CardNow", cardList[index - 1].card_name)
+                        startActivity(intent)
+                        finish()
+                        return@setOnLongClickListener (true)
+                    }
+
+                } else { //카드가 없을 떄
                     data_number.text = "카드 없음"
-                    //안내멘트
                     Handler(Looper.getMainLooper()).postDelayed({
                         startTTS("등록된 카드가 없습니다.")
                     }, 500)
                 }
+
             }
         })
     }

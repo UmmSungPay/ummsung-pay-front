@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CamPermissionActivity">
+    tools:context=".NameEditActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,20 +18,53 @@
         android:layout_marginStart="20dp"
         android:text="UMMSUNG Pay" />
 
-    <TextView
-        android:layout_width="327dp"
-        android:layout_height="188dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/button_cardadd"
-        android:textSize="72sp"
-        android:textAlignment="center"
-        android:textColor="#D1D1D1"
-        android:gravity="center"
-        android:text="+"
-        />
+        android:layout_width="327dp"
+        android:layout_height="188dp"
+        android:background="@drawable/card_shape"
+        android:paddingVertical="24dp"
+        android:paddingHorizontal="24dp">
+
+        <TextView
+            android:id="@+id/data_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/nanum_square_b"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/data_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/data_validity"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/nanum_square_b"
+            android:textSize="25sp"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/data_validity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:fontFamily="@font/nanum_square_b"
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,6 +80,7 @@
             android:background="@android:color/transparent"
             app:layout_constraintLeft_toLeftOf="parent"
             />
+
 
         <Button
             android:id="@+id/button_right"

@@ -67,6 +67,7 @@ class BookmarkActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 //데이터베이스로부터 카드 목록 가져오기
                 var cards = snapshot.child(firebaseId).child("cardlist")
+
                 for (card in cards.children) {
 
                     var name = card.key.toString()

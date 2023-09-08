@@ -12,4 +12,9 @@
     <string name="title_activity_mypage">MypageActivity</string>
     <string name="title_activity_card_add">CardAddActivity</string>
     <string name="title_activity_card_pay">CardPayActivity</string>
+    <string name="title_activity_camera_source">CameraSourceActivity</string>
+    <string name="title_activity_camera_source_preview">CameraSourcePreviewActivity</string>
+    <string name="title_activity_graphic_overlay">GraphicOverlay</string>
+    <string name="title_activity_ocr_detector_processor">OcrDetectorProcessor</string>
+    <string name="title_activity_ocr_graphic">OcrGraphic</string>
 </resources>

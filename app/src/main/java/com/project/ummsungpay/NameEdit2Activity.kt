@@ -14,19 +14,16 @@ import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.postDelayed
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.values
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_card_name.button
 import java.util.Locale
 
-class CardNameActivity : AppCompatActivity() {
+class NameEdit2Activity : AppCompatActivity() {
 
     //tts
     private var tts: TextToSpeech? = null
@@ -35,20 +32,35 @@ class CardNameActivity : AppCompatActivity() {
     private lateinit var speechRecognizer: SpeechRecognizer
     var cardname: String = "" //카드이름을 저장할 변수
 
+    //파이어베이스 데이터베이스
+    private lateinit var database: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+    //파이어베이스 숫자 아이디
+    private lateinit var firebaseAuth: FirebaseAuth
+
     //전달받은 정보
-    private var cardnum: String = ""
-    private var validity: String = ""
+    private var cardNow: String = ""
 
     //효과음
     var mediaPlayer : MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_card_name)
+        setContentView(R.layout.activity_name_edit2)
 
         //전달받은 정보
-        cardnum = intent.getStringExtra("recognized cardnum").toString()
-        validity = intent.getStringExtra("recognized validity").toString()
+        cardNow = intent.getStringExtra("CardNow").toString()
+
+        //다음 액티비티
+        val intentNext = Intent(this, EditCompleteActivity::class.java)
+
+        firebaseAuth = FirebaseAuth.getInstance() //firebase auth 객체
+
+        val firebaseId = firebaseAuth.currentUser?.uid.toString() //파이어베이스 숫자 아이디
+
+        //파이어베이스 데이터베이스
+        database = Firebase.database
+        databaseReference = database.getReference("users")
 
         //tts
         tts = TextToSpeech(this) {
@@ -71,30 +83,26 @@ class CardNameActivity : AppCompatActivity() {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko_KR")
 
         //효과음
-        //mediaPlayer = MediaPlayer.create(this, R.raw.ding_sound_effect)
+        mediaPlayer = MediaPlayer.create(this, R.raw.ding_sound_effect)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("카드번호와 유효기간을 인식했습니다. 화면을 터치한 뒤 카드 이름을 말씀해주세요.")
+            startTTS("화면을 터치한 후 새로운 카드 이름을 말씀해주세요.")
         }, 500)
 
         //음성인식 시작
         button.setOnClickListener{
-            //효과음 재생
             mediaPlayer?.start()
-
             cardname = ""
-            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this@CardNameActivity)
+            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this@NameEdit2Activity)
             speechRecognizer.setRecognitionListener(recognitionListener)
             speechRecognizer.startListening(intent)
         }
 
         //카드이름 저장
         button.setOnLongClickListener {
-            val intent = Intent(this@CardNameActivity, CardInfoActivity::class.java)
-            intent.putExtra("recognized cardname", cardname)
-            intent.putExtra("recognized cardnum", cardnum)
-            intent.putExtra("recognized validity", validity)
-            startActivity(intent)
+            intentNext.putExtra("CardNow", cardNow)
+            intentNext.putExtra("NewName", cardname)
+            startActivity(intentNext)
             finish()
             return@setOnLongClickListener(true)
         }
@@ -103,9 +111,9 @@ class CardNameActivity : AppCompatActivity() {
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= 23 &&
-            ContextCompat.checkSelfPermission(this@CardNameActivity, android.Manifest.permission.RECORD_AUDIO)
+            ContextCompat.checkSelfPermission(this@NameEdit2Activity, android.Manifest.permission.RECORD_AUDIO)
             != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this@CardNameActivity, arrayOf(android.Manifest.permission.RECORD_AUDIO), 0)
+            ActivityCompat.requestPermissions(this@NameEdit2Activity, arrayOf(android.Manifest.permission.RECORD_AUDIO), 0)
         }
     }
 

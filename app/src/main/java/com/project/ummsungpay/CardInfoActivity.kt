@@ -49,11 +49,6 @@ class CardInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_info)
 
-        //tts
-        if (Build.VERSION.SDK_INT >= 23) {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.INTERNET), REQUEST_CODE)
-        }
-
         tts = TextToSpeech(this) {
             if (it == TextToSpeech.SUCCESS) {
                 val result = tts?.setLanguage(Locale.KOREAN)
