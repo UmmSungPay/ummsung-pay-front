@@ -10,8 +10,7 @@ import android.os.Looper
 import android.speech.tts.TextToSpeech
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_cam_permission.button_left
-import kotlinx.android.synthetic.main.activity_cam_permission.button_right
+import kotlinx.android.synthetic.main.activity_cam_permission.button
 import java.util.Locale
 
 class CamPermissionActivity : AppCompatActivity() {
@@ -38,18 +37,8 @@ class CamPermissionActivity : AppCompatActivity() {
             startTTS("화면을 터치하면 카메라가 실행됩니다. 카드의 IC칩이 위로 가도록 위치시켜 주세요.")
         }, 1000)
 
-        button_left.setOnClickListener {
-            //카메라 권한 없을 시
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                //권한 요청
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 1000)
-            } else { //카메라 실행
-                startActivity(Intent(this, VisionActivity::class.java))
-                finish()
-            }
-        }
 
-        button_right.setOnClickListener{
+        button.setOnClickListener{
             //카메라 권한 없을 시
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 //권한 요청

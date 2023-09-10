@@ -138,7 +138,7 @@ class NameEditActivity : AppCompatActivity() {
                             selectedCard = cardList[index-1].card_name
                         }
                         startTTS("$selectedCard 카드의 이름을 수정합니다.")
-                        intent.putExtra("CardNow", cardList[index - 1].card_name)
+                        intent.putExtra("CardNow", selectedCard)
                         startActivity(intent)
                         finish()
                         return@setOnLongClickListener (true)
@@ -150,7 +150,7 @@ class NameEditActivity : AppCompatActivity() {
                             selectedCard = cardList[index-1].card_name
                         }
                         startTTS("$selectedCard 카드의 이름을 수정합니다.")
-                        intent.putExtra("CardNow", cardList[index - 1].card_name)
+                        intent.putExtra("CardNow", selectedCard)
                         startActivity(intent)
                         finish()
                         return@setOnLongClickListener (true)

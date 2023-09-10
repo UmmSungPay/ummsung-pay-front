@@ -17,4 +17,6 @@
     <string name="title_activity_graphic_overlay">GraphicOverlay</string>
     <string name="title_activity_ocr_detector_processor">OcrDetectorProcessor</string>
     <string name="title_activity_ocr_graphic">OcrGraphic</string>
+    <string name="title_activity_base_camera">BaseCameraActivity</string>
+    <string name="title_activity_vision_image">VisionImage</string>
 </resources>
