@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -45,11 +46,15 @@ class LoginActivity : AppCompatActivity() {
             Handler(Looper.getMainLooper()).postDelayed({
                 startTTS("${account.displayName} 계정으로 로그인 되었습니다.")
             }, 500)
-            toCompleteActivity(firebaseAuth.currentUser) //메인 액티비티로 이동
+            //메인 액티비티로 이동
+            if (firebaseAuth?.currentUser != null) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         } else {
             //안내 멘트
             Handler(Looper.getMainLooper()).postDelayed({
-                startTTS("구글 로그인을 위해 화면을 터치해주세요.")
+                startTTS("구글 로그인을 위해 화면을 터치해 주세요.")
             }, 500)
         }
     }
@@ -93,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun toCompleteActivity(user: FirebaseUser?) {
         if (user != null) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, TurnOffActivity::class.java))
             finish()
         }
     }
@@ -107,20 +112,18 @@ class LoginActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account!!)
             } catch (e: ApiException) {
-                startTTS("로그인에 실패했습니다.")
+                //startTTS("로그인에 실패했습니다.")
             }
         }
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        //Toast.makeText(this, acct.id!!, Toast.LENGTH_SHORT).show()
 
         //Google SignInAccount 객체에서 ID 토큰을 가져와 Firebase Auth로 교환하고 Firebase에 인증
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startTTS("${acct.displayName} 계정으로 로그인 되었습니다.")
 
                     val firebaseId = firebaseAuth.currentUser?.uid.toString()
 
@@ -148,7 +151,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun signIn() { //로그인
         Handler(Looper.getMainLooper()).postDelayed({
-            startTTS("계정을 선택해 주세요.")
+            startTTS("talk back 기능을 켠 뒤 계정을 선택해 주세요.")
         }, 500)
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
