@@ -71,7 +71,7 @@ class CardNameActivity : AppCompatActivity() {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko_KR")
 
         //효과음
-        //mediaPlayer = MediaPlayer.create(this, R.raw.ding_sound_effect)
+        mediaPlayer = MediaPlayer.create(this, R.raw.ding_sound_effect)
 
         Handler(Looper.getMainLooper()).postDelayed({
             startTTS("카드번호와 유효기간을 인식했습니다. 화면을 터치한 뒤 카드 이름을 말씀해주세요.")

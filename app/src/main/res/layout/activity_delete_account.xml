@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DeleteAccountActivity">
+    tools:context=".DeleteAccountActivity"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,6 +18,51 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:text="UMMSUNG Pay" />
+
+    <ImageView
+        android:id="@+id/delete_account_image"
+        android:layout_width="370.54dp"
+        android:layout_height="257dp"
+        android:src="@drawable/delete_account_image"
+        app:layout_constraintBottom_toTopOf="@id/description_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/description_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/thejamsil_5_bold"
+        android:text="회원 탈퇴"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/description_detail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/delete_account_image"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/description_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="center"
+        android:text="탈퇴 시 모든 계정 정보가 사라집니다."
+        android:textAlignment="center"
+        android:textColor="#696969"
+        android:textSize="14sp"
+        android:lineSpacingExtra="7sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_main"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/button"
